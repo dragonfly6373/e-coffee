@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <script src="app.js"></script>
+    <script src="lib/common-dom.js"></script>
+    <script src="lib/widget/Common.js"></script>
   </head>
   <body>
     <h1>Hello World!</h1>
@@ -10,10 +13,6 @@
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
-
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+    <ui:MainApplication anon-id="mainApplication">Hello World!!!</ui:MainApplication>
   </body>
 </html>
