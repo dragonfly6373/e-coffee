@@ -1,0 +1,22 @@
+{
+    "name": "e-coffee",
+    "version": "1.0.0",
+    "description": "easy Coffee Shop management",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": "https://github.com/electron/electron-quick-start",
+    "keywords": [
+        "Electron",
+        "Coffee",
+        "Shop",
+        "CoffeeShop",
+        "Management"
+    ],
+    "author": "dragonfly6373",
+    "license": "NONE",
+    "devDependencies": {
+        "electron": "~1.8.4"
+    }
+}
