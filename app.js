@@ -9,7 +9,7 @@ let currentScript = {};
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        title: "electron quick start",
+        title: "e-coffee",
         icon: "images/app_icon.png",
         autoHideMenuBar: true
     });
