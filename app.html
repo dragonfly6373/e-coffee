@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+<head>
     <title>Hello World!</title>
     <script src="app.js"></script>
     <script src="lib/common-dom.js"></script>
+    <script src="lib/config.js"></script>
     <script src="lib/widget/Common.js"></script>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-    <ui:MainApplication anon-id="mainApplication">Hello World!!!</ui:MainApplication>
-  </body>
+
+    <link rel="stylesheet" type="text/css" href="app.css"/>
+
+    <script src="views/common/Dialog.js"></script>
+    <script src="views/MainApplication.js"></script>
+    <script src="views/components/Login.js"></script>
+    <script src="views/components/NumPad.js"></script>
+</head>
+
+<body>
+    <ui:MainApplication anon-id="myApp"/>
+</body>
+
 </html>
