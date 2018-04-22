@@ -4,14 +4,121 @@
 
     $Id: evolus.common-dom.js,v 1.4 2007/06/06 08:43:42 dgthanhan Exp $
 */
-
-/*
-    @dependencies: <none>
-*/
-
-/*
-    Reference Definition
-*/
+const DOM_VK_CANCEL = 3
+const DOM_VK_HELP = 6
+const DOM_VK_BACK_SPACE = 8
+const DOM_VK_TAB = 9
+const DOM_VK_CLEAR = 12
+const DOM_VK_RETURN = 13
+const DOM_VK_ENTER = 14
+const DOM_VK_SHIFT = 16
+const DOM_VK_CONTROL = 17
+const DOM_VK_ALT = 18
+const DOM_VK_PAUSE = 19
+const DOM_VK_CAPS_LOCK = 20
+const DOM_VK_ESCAPE = 27
+const DOM_VK_SPACE = 32
+const DOM_VK_PAGE_UP = 33
+const DOM_VK_PAGE_DOWN = 34
+const DOM_VK_END = 35
+const DOM_VK_HOME = 36
+const DOM_VK_LEFT = 37
+const DOM_VK_UP = 38
+const DOM_VK_RIGHT = 39
+const DOM_VK_DOWN = 40
+const DOM_VK_PRINTSCREEN = 44
+const DOM_VK_INSERT = 45
+const DOM_VK_DELETE = 46
+const DOM_VK_0 = 48
+const DOM_VK_1 = 49
+const DOM_VK_2 = 50
+const DOM_VK_3 = 51
+const DOM_VK_4 = 52
+const DOM_VK_5 = 53
+const DOM_VK_6 = 54
+const DOM_VK_7 = 55
+const DOM_VK_8 = 56
+const DOM_VK_9 = 57
+const DOM_VK_SEMICOLON = 59
+const DOM_VK_EQUALS = 61
+const DOM_VK_A = 65
+const DOM_VK_B = 66
+const DOM_VK_C = 67
+const DOM_VK_D = 68
+const DOM_VK_E = 69
+const DOM_VK_F = 70
+const DOM_VK_G = 71
+const DOM_VK_H = 72
+const DOM_VK_I = 73
+const DOM_VK_J = 74
+const DOM_VK_K = 75
+const DOM_VK_L = 76
+const DOM_VK_M = 77
+const DOM_VK_N = 78
+const DOM_VK_O = 79
+const DOM_VK_P = 80
+const DOM_VK_Q = 81
+const DOM_VK_R = 82
+const DOM_VK_S = 83
+const DOM_VK_T = 84
+const DOM_VK_U = 85
+const DOM_VK_V = 86
+const DOM_VK_W = 87
+const DOM_VK_X = 88
+const DOM_VK_Y = 89
+const DOM_VK_Z = 90
+const DOM_VK_CONTEXT_MENU = 93
+const DOM_VK_NUMPAD0 = 96
+const DOM_VK_NUMPAD1 = 97
+const DOM_VK_NUMPAD2 = 98
+const DOM_VK_NUMPAD3 = 99
+const DOM_VK_NUMPAD4 = 100
+const DOM_VK_NUMPAD5 = 101
+const DOM_VK_NUMPAD6 = 102
+const DOM_VK_NUMPAD7 = 103
+const DOM_VK_NUMPAD8 = 104
+const DOM_VK_NUMPAD9 = 105
+const DOM_VK_MULTIPLY = 106
+const DOM_VK_ADD = 107
+const DOM_VK_SEPARATOR = 108
+const DOM_VK_SUBTRACT = 109
+const DOM_VK_DECIMAL = 110
+const DOM_VK_DIVIDE = 111
+const DOM_VK_F1 = 112
+const DOM_VK_F2 = 113
+const DOM_VK_F3 = 114
+const DOM_VK_F4 = 115
+const DOM_VK_F5 = 116
+const DOM_VK_F6 = 117
+const DOM_VK_F7 = 118
+const DOM_VK_F8 = 119
+const DOM_VK_F9 = 120
+const DOM_VK_F10 = 121
+const DOM_VK_F11 = 122
+const DOM_VK_F12 = 123
+const DOM_VK_F13 = 124
+const DOM_VK_F14 = 125
+const DOM_VK_F15 = 126
+const DOM_VK_F16 = 127
+const DOM_VK_F17 = 128
+const DOM_VK_F18 = 129
+const DOM_VK_F19 = 130
+const DOM_VK_F20 = 131
+const DOM_VK_F21 = 132
+const DOM_VK_F22 = 133
+const DOM_VK_F23 = 134
+const DOM_VK_F24 = 135
+const DOM_VK_NUM_LOCK = 144
+const DOM_VK_SCROLL_LOCK = 145
+const DOM_VK_COMMA = 188
+const DOM_VK_PERIOD = 190
+const DOM_VK_SLASH = 191
+const DOM_VK_BACK_QUOTE = 192
+const DOM_VK_OPEN_BRACKET = 219
+const DOM_VK_BACK_SLASH = 220
+const DOM_VK_CLOSE_BRACKET = 221
+const DOM_VK_QUOTE = 222
+const DOM_VK_META = 224
 
 if (window.EVOLUS_COMMON_DOM) {
     window.EVOLUS_COMMON_DOM.count ++;
