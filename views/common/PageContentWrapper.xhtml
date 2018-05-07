@@ -1,0 +1,42 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @pageContainer {
+            #sys-flex(1, 1em);
+            overflow: auto;
+            position: relative;
+        }
+        @pageContainer > * {
+            #sys-flex(1);
+        }
+
+        @iframe {
+            #sys-flex(1, 0);
+            border: none;
+            width: 100%;
+        }
+
+        @this.WidgetMode > @iframe,
+        @this.IFrameMode > @pageContainer,
+        @this.HostedDialog .AnonId_dialogHeaderPane {
+            display: none;
+        }
+        @this.HostedDialog .AnonId_dialogBody {
+            #sys-flex(1);
+        }
+        @this.HostedDialog .AnonId_dialogFrame {
+            background-color: #fff;
+        }
+        @this.HostedDialog .AnonId_dialogFooter {
+            padding: 0em;
+        }
+        @this.HostedDialog .AnonId_dialogFooterEndPane > button {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            &:last-child {
+                margin-right: 1em;
+            }
+        }
+    </style>
+    <vbox anon-id="pageContainer"></vbox>
+    <iframe anon-id="iframe"></iframe>
+</vbox>
