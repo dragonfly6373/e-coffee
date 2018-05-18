@@ -2,6 +2,7 @@ const {app, protocol, shell, BrowserWindow} = require("electron");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
+const sqlite3 = require("sqlite3").verbose();
 
 let less = require("less");
 let mainWindow = null;
@@ -16,16 +17,16 @@ function createWindow() {
     var context = window;
     less.logger.addListener({
         debug: function(msg) {
-            console.log("[LESS]" + msg);
+            console.log("[LESS Debug]" + msg);
         },
         info: function(msg) {
-            console.info("[LESS]" + msg);
+            console.info("[LESS Info]" + msg);
         },
         warn: function(msg) {
-            console.warn("[LESS]" + msg);
+            console.warn("[LESS Warn]" + msg);
         },
         error: function(msg) {
-            console.error("[LESS]" + msg);
+            console.error("[LESS Error]" + msg);
         }
     });
 }

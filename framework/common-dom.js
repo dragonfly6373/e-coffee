@@ -1023,6 +1023,9 @@ Dom.newDOMElement = function (spec, doc, holder) {
         }
     }
 
+    if (spec._style) {
+        e.style.cssText = spec._style;
+    }
     if (spec._text) {
         e.appendChild(e.ownerDocument.createTextNode(spec._text));
     }

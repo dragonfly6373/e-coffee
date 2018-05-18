@@ -1,42 +1,66 @@
 <vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
     <style>
+        @import "layout-includes.less";
         @this {
             height: 100%;
         }
-        @PageHeaderBar {
-            padding: 0.6em;
-            height: 3em;
+        @pageHeaderBar {
+            padding: 0.2em 0.6em;
             background-color: #4466ff;
-        }
-        @PageContainer {
-            background-color: #FFF;
-            & @LeftContainer {
-                width: 18em;
-                background-color: #AAA;
+            color: #FFF;
+            font-size: 2em;
+            align-items: center;
+            & @toggleMainMenuButton {
+                font-size: 1.4em;
+                cursor: pointer;
             }
-            & @MainContainer {
+            & @pageTitle {
+                padding: 0em 0.6em;
+            }
+        }
+        @mainMenu {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            width: 18em;
+            &:not(.Activate) {
+                display: none;
+            }
+        }
+        .ContentPane {
+            background-color: #FFF;
+            & @pageContentWrapper {
                 background-color: #FFF;
             }
         }
-        @PageFooter {
+        @pageCover {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            background-color: rgba(0, 0, 0, 0.18);
+            &:not(.Activate) {
+                display: none;
+            }
+        }
+        @pageFooter {
+            padding: 1em;
             background-color: #666;
             height: 2em;
         }
     </style>
-    <hbox anon-id="PageHeaderBar">
-        Page Header
+    <hbox anon-id="pageHeaderBar">
+        <a anon-id="toggleMainMenuButton"><icon class="menu"></icon></a>
+        <strong anon-id="pageTitle" flex="1">E-Coffee</strong>
     </hbox>
-    <hbox anon-id="PageContainer" flex="1">
-        <vbox anon-id="LeftContainer">
-            Left Menu
-        </vbox>
-        <vbox anon-id="MainContainer" flex="1">
-            <vbox flex="1" style="align-item: center">
-                <hbox flex="1" style="align-item: center"><span flex="1">Category View</span></hbox>
-            </vbox>
-        </vbox>
-    </hbox>
+    <vbox class="ContentPane" flex="1">
+        <ui:PageContentWrapper anon-id="pageContentWrapper" flex="1"></ui:PageContentWrapper>
+    </vbox>
+    <hbox anon-id="pageCover"></hbox>
     <hbox anon-id="PageFooter">
         Page Footer
     </hbox>
+    <ui:Menu anon-id="mainMenu"/>
 </vbox>

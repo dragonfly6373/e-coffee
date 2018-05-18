@@ -4,6 +4,7 @@
     "description": "easy Coffee Shop management",
     "main": "main.js",
     "scripts": {
+        "postinstall": "install-app-deps",
         "start": "electron ."
     },
     "repository": "https://github.com/electron/electron-quick-start",
@@ -17,9 +18,11 @@
     "author": "dragonfly6373",
     "license": "NONE",
     "devDependencies": {
-        "electron": "~1.8.4"
+        "electron": "~1.8.4",
+        "electron-builder": "^20.11.1"
     },
     "dependencies": {
-        "less": "^3.0.1"
+        "less": "^3.0.1",
+        "sqlite3": "^4.0.0"
     }
 }
