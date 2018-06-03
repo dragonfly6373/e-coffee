@@ -12,7 +12,10 @@ function MainApplication() {
 __extend(BaseTemplatedWidget, MainApplication);
 
 MainApplication.prototype.onAttached = function() {
-    console.log("MainApplication is attached.");
+    var defaultPage = this.mainMenu.getPageById(this.mainMenu.getDefaultPageId());
+    console.log("MainApplication is attached.", defaultPage);
+    this.navigateTo(defaultPage);
+    this.mainMenu.activeMenu(defaultPage.id);
 }
 
 MainApplication.prototype.activePageCover = function(isActive) {
@@ -23,6 +26,6 @@ MainApplication.prototype.activePageCover = function(isActive) {
     }
 }
 
-MainApplication.prototype.navigateTo = function(coponent) {
-
+MainApplication.prototype.navigateTo = function(component) {
+    this.pageContentWrapper.launch(component);
 }

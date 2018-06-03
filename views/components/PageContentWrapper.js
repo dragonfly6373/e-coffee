@@ -9,7 +9,7 @@ PageContentWrapper.prototype.reset = function () {
     Dom.removeClass(this.node(), "IFrameMode");
 };
 PageContentWrapper.prototype.launch = function (feature, preExecuteCallback,  callback) {
-    this.indicator = AdminConsole.instance.asCustomIndicator("Loading " + feature.name + "...");
+    // this.indicator = AdminConsole.instance.asCustomIndicator("Loading " + feature.name + "...");
     var thiz = this;
     var next = function () {
         if (preExecuteCallback) preExecuteCallback();
@@ -26,9 +26,9 @@ PageContentWrapper.prototype.launch = function (feature, preExecuteCallback,  ca
             } else {
                 Dom.removeClass(this.node(), "HostedDialog");
             }
-            
+
         } else if (f.src) {
-            this.indicator.busy();
+            // this.indicator.busy();
             Dom.addClass(this.node(), "IFrameMode");
             Dom.removeClass(this.node(), "WidgetMode");
             this.featureWidget = null;
@@ -38,13 +38,13 @@ PageContentWrapper.prototype.launch = function (feature, preExecuteCallback,  ca
                     this.indicator.done();
                 }
                 this.iframe.contentWindow.addEventListener("unload", function (event) {
-                    thiz.indicator.busy();
+                    // thiz.indicator.busy();
                 }, false);
 
             }, this.iframe);
             this.iframe.src = f.src;
             window.setTimeout(function(){
-                thiz.indicator.done();
+                // thiz.indicator.done();
             }, 2000);
         }
 

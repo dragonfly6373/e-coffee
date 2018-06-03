@@ -1,6 +1,7 @@
 function Menu() {
 	BaseTemplatedWidget.call(this);
     this._active = false;
+    this._currentActive = null;
     this.bind("click", this.active.bind(this, false), this.closeButton);
 	this.install(Menu.data);
 }
@@ -21,12 +22,22 @@ Menu.prototype.isActive = function() {
     return this._active;
 }
 
+Menu.prototype.getDefaultPageId = function() {
+    return "home";
+}
+
+Menu.prototype.getPageById = function(id) {
+    return this[id];
+}
+
 Menu.prototype.install = function(data) {
 	for (i in data) {
         var menu = data[i];
         if (menu.name) {
             var menuItem = this.newMenuItem(menu, "MainMenu");
             this.mainMenuContainer.appendChild(menuItem);
+            menu.__node = menuItem;
+            this[menu.id] = menu;
         }
         if (menu.components && menu.components.length > 0) {
             var w = Dom.newDOMElement({
@@ -34,10 +45,21 @@ Menu.prototype.install = function(data) {
                 class: "MenuGroup"
             });
             for (var i in menu.components) {
-                w.appendChild(this.newMenuItem(menu.components[i], "SubMenu"));
+                var menuItem = this.newMenuItem(menu.components[i], "SubMenu");
+                w.appendChild(menuItem);
+                menu.__node = menuItem;
+                this[menu.id] = menu;
             }
             this.mainMenuContainer.appendChild(w);
         }
+    }
+}
+
+Menu.prototype.activeMenu = function(id) {
+    var menuItem = this[id];
+    if (menuItem) {
+        if (this._currentActive) Dom.removeClass(this._currentActive.__node, "Active");
+        Dom.addClass(menuItem.__node, "Active");
     }
 }
 
@@ -72,13 +94,13 @@ Menu.data = [
                 name: "User Info",
                 icon: "information-outline",
                 style: {},
-                implement: null
+                implementation: null
             }, {
                 id: "logout",
                 name: "Logout",
                 icon: "logout",
                 style: "color: red",
-                implement: null
+                implementation: null
             }
         ]
     }, {
@@ -86,29 +108,29 @@ Menu.data = [
         name: "Home",
         icon: "home",
         style: "color: blue",
-        implement: null
+        implementation: Home
     }, {
         components: [
             {
                 id: "category",
                 name: "Category",
                 icon: "food",
-                implement: null
+                implementation: null
             }, {
                 id: "floor_table",
                 name: "Floor & Table",
                 icon: "layers",
-                implement: null
+                implementation: null
             }, {
                 id: "sync_data",
                 name: "Sync Data",
                 icon: "sync",
-                implement: null
+                implementation: null
             }, {
                 id: "report",
                 name: "Report",
                 icon: "finance",
-                implement: null
+                implementation: null
             }
         ]
     }, {
@@ -117,18 +139,18 @@ Menu.data = [
                 id: "setting",
                 name: "Settings",
                 icon: "settings",
-                implement: null
+                implementation: null
             }, {
                 id: "appearance",
                 name: "Appearance",
                 icon: "palette",
-                implement: null
+                implementation: null
             }
         ]
     }, {
         id: "about",
         name: "About...",
         icon: "information-outline",
-        implement: null
+        implementation: null
     }
 ];

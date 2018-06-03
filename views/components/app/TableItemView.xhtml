@@ -1,0 +1,56 @@
+<vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            flex: 1 22%;
+            margin-top: 0.4em;
+            margin-left: 0.4em;
+            border: 0.1em solid #CCC;
+            min-height: 12em;
+            & > .TableHeader {
+                padding: 0.4em;
+                align-items: center;
+                border-bottom: 0.1em solid #CCC;
+            }
+            & > .TableBody {
+                padding: 0.4em;
+                & .Remarks {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    & icon {
+                        width: 1em;
+                        height: 1em;
+                    }
+                }
+            }
+        }
+        .TableBody {
+            flex: 1;
+            & .FreeLabel {
+                flex: 1;
+                align-items: center;
+            }
+        }
+        .TableBody:not(.Available) > .FreeLabel {
+            display: none;
+        }
+        .TableBody.Available {
+            align-items: center;
+            & > .Properties {
+                display: none;
+            }
+        }
+    </style>
+    <hbox class="TableHeader">
+        <span anon-id="itemName" flex="1">Table 1</span>
+        <ui:MenuGroup anon-id="menuGroup"/>
+    </hbox>
+    <vbox anon-id="tableBody" class="TableBody">
+        <hbox class="FreeLabel">Available</hbox>
+        <ui:RepeaterView anon-id="properties" class="Properties" tag="hbox">
+            <icon anon-id="icon"></icon>
+            <span anon-id="label"></span>
+        </ui:RepeaterView>
+        <vbox anon-id="remarks" class="Remarks"></vbox>
+    </vbox>
+</vbox>
