@@ -27,6 +27,11 @@ TableComponent.prototype.install = function() {
             item.into(this.mainContentWrapper);
         }
     }
+    if (this.data.length % 4 != 0) {
+        for (var i = 0; i < 4 - (this.data.length % 4); i++) {
+            this.mainContentWrapper.appendChild(Dom.newDOMElement({_name: "div"}));
+        }
+    }
 }
 
 TableComponent.prototype.getStatus = function() {
