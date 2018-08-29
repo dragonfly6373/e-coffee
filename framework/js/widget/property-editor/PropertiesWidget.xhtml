@@ -1,0 +1,45 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @editorsContainer {
+            & hbox + hbox {
+                margin-top: 0.5em;
+            }
+            & .EditorInput {
+                #sys-flex(1);
+            }
+            & .EditorBox:not(.DraggAble) .DragButton {
+                display: none;
+            }
+            & .EditorBox .DragButton {
+                margin-right: 0.5em;
+                padding: 0.5em;
+            }
+
+            & .EditorBox.Hidden {
+                display: none;
+            }
+            & .DropHint {
+                height: 0px;
+                outline: solid 3px @primary_color;
+            }
+
+            & .CurrentDraggable {
+                opacity: 0.2;
+                outline: dashed 1px @primary_color;
+            }
+
+            & .JustDropped {
+                box-shadow: 0px 0px 4px @primary_color;
+                transform: scale(1.02);
+            }
+
+
+        }
+        .Separator {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+    </style>
+    <vbox anon-id="editorsContainer" flex="1"></vbox>
+</vbox>

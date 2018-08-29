@@ -1,0 +1,56 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            @spacing: 0.2em;
+            @padding: 0.4em;
+            #sys-text-style();
+            #sys-wrap();
+            padding-top: 0em;
+            padding-left: 0em;
+            padding-right: @spacing;
+            padding-bottom: @spacing;
+
+            & > @autoCompleteInput {
+                box-shadow: none;
+                border: none;
+                padding: @padding;
+                width: 8em;
+            }
+
+            & > * {
+                margin-top: @spacing;
+                margin-left: @spacing;
+            }
+            & > .Item {
+                align-items: center;
+                background: @primary_color;
+                color: @inverted_text_color;
+                padding: @padding;
+                border-radius: 0.2em;
+                cursor: default;
+                &:focus {
+                    background: @problem_color;
+                }
+                & > icon {
+                    margin-left: 0.5em;
+                    font-weight: 900;
+                    font-size: 1.2em;
+                    &:hover {
+                        color: #F00;
+                        text-shadow: 0px 0px 3px (rgba(255, 255, 255, 0.7));
+                    }
+                }
+            }
+            &[active="false"] > .Item {
+                &:focus {
+                    background: @primary_color;
+                }
+                & > icon {
+                    display: none;
+                }
+            }
+        }
+
+    </style>
+    <ui:AutoCompleteText anon-id="autoCompleteInput" flex="1" />
+</hbox>

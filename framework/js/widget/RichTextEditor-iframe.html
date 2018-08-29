@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8"/>
+        <link href="/framework/quill/quill.snow.css" rel="stylesheet" />
+        <script src="/framework/quill/quill.js"></script>
+        <script src="RichTextEditor-iframe.js"></script>
+        <style type="text/css">
+            html, body {
+                margin: 0px;
+                padding: 0px;
+                overflow: hidden;
+            }
+            body {
+                font-family: 'Roboto', sans-serif !important;
+                font-size: 0.9em;
+            }
+            #editorContainer {
+                height: auto !important;
+                background: #FFF;
+            }
+            .ql-editor {
+                height: auto !important;
+                min-height: 20em;
+            }
+            #wrapper {
+                padding-top: 45px;
+            }
+            #toolbar {
+                background: #EEEEEE;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                right: 0px;
+                z-index: 99999999;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="toolbar">
+            <div>
+                <select class="ql-font">
+                    <option value="sans-serif" selected="true">Sans Serif</option>
+                    <option value="serif">Serif</option>
+                    <option value="monospace">Monospace</option>
+                </select>
+                <select class="ql-size">
+                    <option value="small"></option>
+                    <option selected="true"></option>
+                    <option value="large"></option>
+                    <option value="huge"></option>
+                </select>
+                <select class="ql-header">
+                    <option selected="true">Body</option>
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                </select>
+
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+
+                <button class="ql-script" value="sub"></button>
+                <button class="ql-script" value="super"></button>
+            </div>
+            <div>
+                <select class="ql-background"></select>
+                <select class="ql-color"></select>
+
+                <button class="ql-link"></button>
+                <button class="ql-image"></button>
+                <button class="ql-formula"></button>
+
+                <button class="ql-blockquote"></button>
+                <button class="ql-indent" value="-1"></button>
+                <button class="ql-indent" value="+1"></button>
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <select class="ql-align"></select>
+                <button class="ql-clean"></button>
+            </div>
+        </div>
+        <div id="wrapper">
+            <div id="editorContainer"></div>
+        </div>
+    </body>
+</html>

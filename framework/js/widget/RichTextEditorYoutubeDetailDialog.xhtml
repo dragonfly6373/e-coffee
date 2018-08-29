@@ -1,0 +1,22 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        .Entry + .Entry {
+            margin-top: 1em;
+        }
+        
+        @youtubeIdInput {
+            width: 25em;
+        }
+        @videoSizeSelector {
+            align-self: flex-start;
+        }
+    </style>
+    <vbox class="Entry">
+        <label for="youtubeIdInput">Youtube video ID or URL:</label>
+        <input type="text" anon-id="youtubeIdInput" value="" />
+    </vbox>
+    <vbox class="Entry">
+        <label for="videoSizeSelector">Size:</label>
+        <ui:ComboManager anon-id="videoSizeSelector" />
+    </vbox>
+</vbox>

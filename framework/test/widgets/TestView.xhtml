@@ -1,0 +1,24 @@
+<vbox>
+    <style>
+        @this {
+            padding-bottom: 60em;
+        }
+        
+        @dataView td.Col_class_associate vbox {
+            & > div + div + div + div + div + div + div + div + div + div + div + div + div + div {
+                &:before {
+                    content: "...";
+                }
+                & > span,
+                & + div {
+                    display: none;
+                }
+            }
+        }
+    </style>
+    <vbox anon-id="mainContainer">
+        <h1 anon-id="header">&#160;</h1>
+        <ui:DataView flex="1" anon-id="dataView" spec-id="cm-lesson-subprogram" />
+        <button anon-id="reloadButton">Reload</button>
+    </vbox>
+</vbox>

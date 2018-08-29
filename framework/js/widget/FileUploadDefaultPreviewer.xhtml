@@ -1,0 +1,54 @@
+<div xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            position: relative;
+            width: 8em;
+            height: 8em;
+            cursor: pointer;
+
+            &.UseImage > @regularFileInfoPane,
+            &:not(.UseImage) > @imageView {
+                display: none;
+            }
+
+        }
+
+        @imageView,
+        @regularFileInfoPane {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+        }
+        @regularFileInfoPane {
+            padding: 1em;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            & > icon {
+                font-size: 1.5em;
+                margin-bottom: 0.3em;
+                opacity: 0.54;
+            }
+            & > @fileType {
+                margin-top: 0.5em;
+                opacity: 0.5;
+            }
+            & > @fileName,
+            & > @fileType {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+        }
+    </style>
+    <ui:ImageView anon-id="imageView" flex="1"/>
+    <vbox anon-id="regularFileInfoPane" flex="1">
+        <icon anon-id="fileIcon"></icon>
+        <strong anon-id="fileName">File name</strong>
+        <span anon-id="fileType">MS Word document</span>
+    </vbox>
+</div>

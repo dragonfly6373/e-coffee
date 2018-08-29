@@ -1,0 +1,27 @@
+<vbox>
+    <style>
+        @this {
+            & .widget_EnumEditor .widget_SelectBox button > span:first-child {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 18em;
+            }
+            
+            & .EditorBox[title] {
+                padding-bottom: 1.5em;
+                position: relative;
+            }
+            & .EditorBox[title]::after {
+                content: attr(title);
+                position: absolute;
+                left: 13em / 0.9;
+                bottom: 0.3em;
+                opacity: 0.7;
+                font-size: 0.9em;
+            }
+        }
+
+    </style>
+    <ui:PropertiesWidget anon-id="propertiesWidget" />
+</vbox>

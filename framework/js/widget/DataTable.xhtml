@@ -1,0 +1,106 @@
+<vbox class="DataTableContainer">
+    <style>
+        @this {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        table th {
+            #sys-no-select();
+            
+            & .WrapperInner {
+                #sys-hbox();
+                align-items: center;
+            }
+        }
+        @this:hover {
+            overflow-x: auto;
+        }
+        @this.PageSizeCalculating > table {
+            visibility: hidden;
+        }
+        @this > .ColumnSetting {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+        @this > .ColumnSetting span i {
+            color: #999;
+        }
+        @this:hover > .ColumnSetting {
+            opacity: 0.8;
+        }
+        @this:hover> .ColumnSetting i {
+            color: #888;
+        }
+        @this:hover > .ColumnSetting span:hover i {
+            color: #369;
+        }
+
+        .SelectionInfoPane {
+            width: 240px;
+            height: 45%;
+            position: absolute;
+            left: 45px;
+            top: 10px;
+            -webkit-box-shadow: 10px 10px 20px -9px rgba(0,0,0,0.8);
+            -moz-box-shadow: 10px 10px 20px -9px rgba(0,0,0,0.8);
+            box-shadow: 10px 10px 20px -9px rgba(0,0,0,0.8);
+            border: solid 1px #CCC;
+            background: #FFF;
+
+        }
+        .SelectionInfoPane .SelectionBodyPane {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 40px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .SelectionInfoPane .ActionInfoPane {
+           width: 100%;
+        }
+        
+        @this:not(.Busy) .BusyIndicator {
+            display: none;
+        }
+        
+        .DTCheckBoxBody input[disabled] {
+            &[type='checkbox']:not([_isSelectable='false']){
+                opacity: 1;
+            }
+        }
+        
+        .BusyIndicator {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            background: rgba(0, 0, 0, 0.05);
+            align-items: center;
+            justify-content: center;
+
+            & > hbox {
+                align-items: center;
+                background: #FFF;
+                padding: 1em;
+                box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+
+                & > icon {
+                    animation-name: spin360;
+                    animation-duration: 1500ms;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+
+                    margin-right: 0.7em;
+                    font-size: 1.3em;
+                }
+            }
+        }
+    </style>
+</vbox>

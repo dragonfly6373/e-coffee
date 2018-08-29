@@ -1,0 +1,262 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0" tabindex="0">
+    <style>
+        @this {
+            position: relative;
+            background: transparent;
+            border: dashed 2px #BBB;
+            border-radius: 0.5em;
+            outline: none;
+
+            &.CV_Invalid {
+                #sys-invalid();
+            }
+
+            &:not(.HasFiles) {
+                cursor: pointer;
+                &:hover @messagePane {
+                    background-color: rgba(0, 0, 0, 0.1);
+                }
+            }
+            &.HasFiles > @messagePane,
+            &:not(.HasFiles) > @previewAndAdd,
+            &:not(.HasFiles) > @addMoreMessageText,
+            &:not(.HasFiles) > @limitReachedMessageText,
+            &.LimitReached > @addMoreMessageText,
+            &.LimitReached @addMoreButton,
+            &:not(.LimitReached) > @limitReachedMessageText {
+                display: none;
+            }
+            &.DragOver {
+                background: rgba(94, 166, 218, 0.2);
+            }
+
+            &.LimitReached @previewContainer {
+                #sys-flex(1);
+            }
+
+            &:focus,
+            &.PasteReceiverFocused {
+                border-color: @primary_color;
+            }
+            &::-moz-focus-inner {
+                border: 0;
+            }
+
+            &[max="1"] {
+                & @addMoreMessageText,
+                & @limitReachedMessageText {
+                    display: none;
+                }
+            }
+        }
+
+        @messagePane,
+        @addMoreMessageText,
+        @limitReachedMessageText {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1em;
+
+            & > * {
+                max-width: 100%;
+            }
+        }
+
+        @messagePane,
+        @addMoreMessageText {
+            opacity: 0.7;
+        }
+
+        @addMoreMessageText,
+        @limitReachedMessageText {
+            padding-top: 0em;
+        }
+
+        @limitReachedMessageText {
+            color: red;
+        }
+
+        @fileInput {
+            display: none;
+        }
+        @previewAndAdd {
+            padding: 1em;
+        }
+        
+        @previewContainer {
+            overflow: visible;
+            opacity: 0.999999;
+
+            & > .PreviewWrapper,
+            body > .DragImageWrapper > .PreviewWrapper {
+                display: inline-block;
+                margin: 0.25em;
+                box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+                position: relative;
+
+                & > .ProgressPane {
+                    #sys-vbox();
+                    position: absolute;
+                    top: 0em;
+                    right: 0em;
+                    bottom: 0em;
+                    left: 0em;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+
+                    & > .ProgressDisplay {
+                        color: #FFF;
+                        font-size: 0.85em;
+                    }
+                    & > .ProgressTotal {
+                        margin-top: 0.2em;
+                        width: 3em;
+                        height: 0.8em;
+                        background: rgba(255, 255, 255, 0.5);
+                        & > div {
+                            background: @primary_color;
+                            width: 20%;
+                        }
+                    }
+
+                }
+                &.Uploading > .ProgressPane {
+                    background: rgba(0, 0, 0, 0.3);
+                }
+
+                &:not(.Uploading) > .ProgressPane > * {
+                    display: none;
+                }
+
+                & > icon {
+                    position: absolute;
+                    top: -0.5em;
+                    right: -0.5em;
+                    font-size: 1.2em;
+                    background: #FFF;
+                    border-radius: 50%;
+                    z-index: 1;
+                    cursor: pointer;
+                }
+                &:not(:hover) > icon {
+                    display: none;
+                }
+
+                & > icon:hover {
+                    color: red;
+                }
+                & > icon:active {
+                    color: #900;
+                }
+
+                & > .Holder > * {
+                    #sys-flex(1);
+                }
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    overflow: hidden;
+                    top: 0px;
+                    bottom: 0px;
+                    width: 0.5em;
+                    background: @primary_color;
+                    opacity: 0;
+                }
+
+                &.DropTargetLeft,
+                &.DropTargetRight {
+
+                    &::after {
+                        opacity: 0.9;
+                    }
+                }
+
+                &.DropTargetLeft::after {
+                    left: -0.5em;
+                }
+                &.DropTargetRight::after {
+                    right: -0.5em;
+                }
+            }
+
+            body > .DragImageWrapper > .PreviewWrapper {
+                opacity: 0.5;
+            }
+
+            & > .DropHint {
+                display: inline-block;
+                position: relative;
+                width: 0px;
+                height: 8em;
+                z-index: 1;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    overflow: hidden;
+                    top: -2px;
+                    bottom: -2px;
+                    left: -0.2em;
+                    width: 0.4em;
+                    background: @primary_color;
+                }
+            }
+
+            & > * {
+                vertical-align: middle;
+            }
+
+            & > @addMoreButton {
+                width: 8em;
+                height: 8em;
+                padding: 0em;
+                box-sizing: border-box;
+                font: inherit;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.8);
+                border: dashed 1px #CCC;
+                color: #999;
+                border-radius: 0px;
+                margin: 0.25em;
+
+                & icon {
+                    font-size: 1.6em;
+                    font-weight: bold;
+                    margin-bottom: 0.2em;
+                }
+            }
+        }
+        
+        @sizeText {
+            position: absolute;
+            top: 2em;
+            left: 2em;
+            font-size: 0.85em;
+            opacity: 0.3;
+            font-weight: bold;
+            color: #000;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 1);
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+        @this:not(.WithSizeInfo) @sizeText,
+        @this:not(.HasFiles) @sizeText {
+            display: none;
+        }
+
+    </style>
+    <input type="file" multiple="multiple" name="file" anon-id="fileInput" />
+    <hbox anon-id="previewAndAdd" flex="1">
+        <div anon-id="previewContainer"><button anon-id="addMoreButton"><vbox><icon class="plus"></icon><span anon-id="addMoreText">Add</span></vbox></button></div>
+    </hbox>
+    <vbox anon-id="messagePane" flex="1">Drop files here or click to select.</vbox>
+    <vbox anon-id="addMoreMessageText">Click "Add" to add more files. You can also remove and re-order uploaded files.</vbox>
+    <vbox anon-id="limitReachedMessageText">You have reached to file upload limit, remove files above to add new.</vbox>
+    <span anon-id="sizeText"></span>
+</vbox>

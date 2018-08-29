@@ -1,0 +1,38 @@
+<vbox xmlns:ui="//evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            min-width: 30em;
+            min-height: 10em;
+            padding: 1.5em;
+
+            & @updateContainer {
+                align-items: center;
+                margin-bottom: 1.5em;
+            }
+
+            & .SelectionItem {
+                & > input[type="radio"] + * {
+                    margin-left: 0.5em;
+                }
+            }
+
+            & @nameInput {
+                margin-top: 0.5em;
+            }
+        }
+
+    </style>
+    <vbox>
+        <hbox anon-id="updateContainer" class="SelectionItem">
+            <input type="radio" anon-id="updateRadio" name="view"/>
+            <label for="updateRadio" anon-id="updateViewLabel">Update saved view</label>
+        </hbox>
+        <hbox anon-id="createContainer" class="SelectionItem">
+            <input type="radio" anon-id="createRadio" name="view"/>
+            <vbox flex="1">
+                <label for="createRadio" anon-id="newViewLabel">Save as new Saved View:</label>
+                <input type="text" anon-id="nameInput" />
+            </vbox>
+        </hbox>
+    </vbox>
+</vbox>

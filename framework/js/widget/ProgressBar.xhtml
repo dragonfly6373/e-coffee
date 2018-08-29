@@ -1,0 +1,57 @@
+<vbox>
+    <style>
+        @progressBar {
+            background: darken(@app_bg, 30%);
+            height: 1em;
+            margin-top: 0.5em;
+            width: 20em;
+        }
+        @progressBar,
+        @statusLabel {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @progressBarInner {
+            height: 100%;
+            background: @selected_bg;
+        }
+        @container {
+            padding: 1em;
+            background: #FFF;
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+            &.ProgressOnly {
+                align-items: left;
+                &  @statusIcon {
+                    display: none;
+                }
+                & @progressBar {
+                    display: flex;
+                }
+            }
+            &:not(.ProgressOnly) {
+                & > hbox {
+                    align-items: center;
+                }
+                & @progressBar {
+                    display: none;
+                }
+            }
+            &  icon {
+                animation-name: spin360;
+                animation-duration: 1500ms;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+
+                margin-right: 0.7em;
+                font-size: 1.3em;
+            }
+        }
+
+    </style>
+    <vbox anon-id="container">
+        <hbox><icon class="image-filter-tilt-shift" anon-id="statusIcon" ></icon><span anon-id="statusLabel"></span></hbox>
+        <div anon-id="progressBar">
+            <div anon-id="progressBarInner"></div>
+        </div>
+    </vbox>
+</vbox>

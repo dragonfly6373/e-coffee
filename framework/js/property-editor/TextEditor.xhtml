@@ -1,0 +1,22 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            align-items: center;
+
+            & .EditorInput {
+                justify-content: flex-end;
+                -webkit-justify-content: flex-end;
+            }
+        }
+        @textInput, @multilineTextInput {
+            margin-left: 1em;
+            &:not(.Active) {
+                display: none;
+            }
+        }
+    </style>
+    <icon anon-id="dragIcon" class="DragButton"></icon>
+    <div anon-id="textTitle" class="EditorLabel">Text:</div>
+    <ui:AutoCompleteText anon-id="textInput" flex="1" type="text" class="EditorInput Active"/>
+    <textarea anon-id="multilineTextInput" class="EditorInput"/>
+</hbox>

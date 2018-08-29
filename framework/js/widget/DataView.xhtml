@@ -1,0 +1,86 @@
+<vbox>
+    <style>
+        @this {
+            & > * + * {
+                margin-top: 1em;
+            }
+
+        }
+        @headerSection > .widget_DataViewSavedViewSelector + hbox {
+            margin-left: 1em;
+        }
+        @savedFilterCombo {
+            margin-right: 2em;
+        }
+        @headerSection > hbox > button {
+            background-color: @primary_color;
+            color: @base_inverted_text_color;
+            font-weight: bold;
+            
+            &:hover {
+                background-color: lighten(@primary_color, 10%);
+            }
+        }
+        @headerSection > hbox > button:not(:last-child) {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        @headerSection > hbox > button + button {
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+        @actionBar {
+            & > * + * {
+                margin-left: 1em;
+            }
+        }
+
+        @bodySection > * + * {
+            margin-top: 2em;
+        }
+
+        @filterView .widget_PropertiesWidget .AnonId_editorsContainer {
+            #sys-hbox();
+
+            & > * + * {
+                margin-left: 1em;
+                margin-top: 0em;
+            }
+
+            & .widget_ComplexEditor.EditorBox {
+                #sys-hbox();
+                & > * + * {
+                    margin-left: 1em;
+                    margin-top: 0em;
+                }
+            }
+        }
+
+        .widget_DataTable > table td > .CellContentWrapper > hbox {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+    <hbox anon-id="headerSection">
+        <ui:DataViewSavedViewSelector anon-id="savedFilterCombo" flex="1" />
+        <hbox>
+            <button anon-id="editFilterButton"><icon class="pencil"></icon><span>Customize...</span></button>
+            <button anon-id="saveButton"><icon class="content-save"></icon><span>Save</span></button>
+        </hbox>
+    </hbox>
+    <vbox anon-id="bodySection" flex="1">
+        <hbox>
+            <hbox anon-id="actionBar"></hbox>
+            <hbox anon-id="filterBox" flex="1"><hbox flex="1"></hbox><ui:DataViewFilterView anon-id="filterView" /></hbox>
+        </hbox>
+        <vbox anon-id="dataTableContainer" flex="1">
+            <ui:DataTable anon-id="dataTable" flex="1" />
+        </vbox>
+    </vbox>
+    <hbox anon-id="footerSection">
+        <div anon-id="contentDescription" flex="1"></div>
+        <ui:Paginator anon-id="paginator" />
+    </hbox>
+</vbox>

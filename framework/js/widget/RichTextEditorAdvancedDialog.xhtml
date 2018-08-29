@@ -1,0 +1,39 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @mainTab {
+            width: 70em;
+            height: 40em;
+        }
+
+        @mainTab .EditorTab {
+            padding: 0em;
+
+            & textarea {
+                border-radius: 0px;
+            }
+
+            & .CodeMirror {
+                width: 100%;
+                height: 100%;
+
+                box-sizing: border-box;
+                border: solid 1px #CCC;
+
+                font-family: "Liberation Mono", "Courier New", monospace;
+                font-size: 1em;
+
+                & .CodeMirror-placeholder {
+                    opacity: 0.3;
+                }
+            }
+        }
+    </style>
+    <ui:TabPane anon-id="mainTab" flex="1">
+        <vbox tab-title="HTML" anon-id="htmlTab" class="EditorTab">
+            <textarea anon-id="htmlInput" flex="1"></textarea>
+        </vbox>
+        <vbox tab-title="Stylesheet" anon-id="cssTab" class="EditorTab">
+            <textarea anon-id="cssInput" flex="1" placeholder="Custome CSS for this content."></textarea>
+        </vbox>
+    </ui:TabPane>
+</vbox>

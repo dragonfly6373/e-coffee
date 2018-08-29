@@ -1,0 +1,85 @@
+<div class="Sys_DialogContainer">
+    <style>
+        body .Sys_DialogContainer {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+        body .Sys_DialogOverlay {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            cursor: default;
+        }
+        body .AnonId_dialogFrame {
+            position: absolute;
+            box-sizing: border-box;
+            cursor: default;
+            max-height: 100%;
+            overflow: hidden;
+
+            &:not(.Busy) > .AnonId_busyIndicator {
+                display: none;
+            }
+
+            &.Busy > .AnonId_busyIndicator {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                background: rgba(0, 0, 0, 0.05);
+                align-items: center;
+                justify-content: center;
+
+                & > hbox {
+                    align-items: center;
+                    background: #FFF;
+                    padding: 1em;
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+
+                    & > icon {
+                        animation-name: spin360;
+                        animation-duration: 1500ms;
+                        animation-iteration-count: infinite;
+                        animation-timing-function: linear;
+
+                        margin-right: 0.7em;
+                        font-size: 1.3em;
+                    }
+                }
+            }
+        }
+
+        body @dialogBody {
+            #sys-flex(1);
+            overflow: auto;
+        }
+
+        body @dialogTitle {
+            white-space: nowrap;
+        }
+    </style>
+    <vbox anon-id="dialogFrame" class="DialogFrame" tabindex="0">
+        <hbox anon-id="dialogHeaderPane">
+            <div flex="1" anon-id="dialogTitleContainer">
+                <strong anon-id="dialogTitle">Dialog Title</strong>
+                <span anon-id="dialogSubTitle"></span>
+            </div>
+            <i anon-id="dialogClose" sys-icon="close"></i>
+        </hbox>
+        <vbox flex="1" anon-id="dialogBody">
+        </vbox>
+        <hbox anon-id="dialogFooter">
+            <hbox anon-id="dialogFooterStartPane"></hbox>
+            <hbox anon-id="dialogFooterMiddlePane" flex="1"></hbox>
+            <hbox anon-id="dialogFooterEndPane"></hbox>
+        </hbox>
+        <hbox anon-id="busyIndicator">
+            <ui:ProgressBar anon-id="progressWidget" />
+        </hbox>
+    </vbox>
+</div>

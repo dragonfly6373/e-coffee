@@ -1,0 +1,17 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            align-items: center;
+            & .EditorInput {
+                justify-content: flex-end;
+                -webkit-justify-content: flex-end;
+            }
+        }
+        @dateInput {
+            margin-left: 1em;
+        }
+    </style>
+    <icon anon-id="dragIcon" class="DragButton"></icon>
+    <div anon-id="dateTitle" class="EditorLabel">Date:</div>
+    <ui:DateTimePicker anon-id="dateInput" class="EditorInput"/>
+</hbox>

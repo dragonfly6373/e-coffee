@@ -1,0 +1,101 @@
+<div>
+    <style>
+        body @popupContainer.InfoTip {
+            display: none;
+            position: relative;
+            background: none;
+            box-shadow: none;
+            padding: 0em;
+            cursor: default;
+
+            & > @balloon {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                z-index: -1;
+
+                & svg {
+                    -webkit-filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+                    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+                }
+                & path {
+                    stroke: #FFFFFF;
+                    stroke-width: 1;
+                }
+            }
+
+            & path {
+                fill: fadeout(@primary_color, 20%);
+            }
+
+            &[type="error"] path {
+                fill: fadeout(#FF0000, 40%);
+            }
+            &[type="tooltip"] path {
+                fill: fadeout(#000000, 40%);
+            }
+
+            & > @contentHolder {
+                padding-left: 15px;
+                padding-right: 15px;
+                padding-top: 15px;
+                padding-bottom: 20px;
+                & > * {
+                    max-width: 20em;
+                    color: #FFF;
+                }
+            }
+            & > @closeButton {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                color: #F00;
+                opacity: 0.6;
+                cursor: pointer;
+                font-weight: bold;
+
+                display: inline-block;
+                width: 1em;
+                height: 1em;
+                background: #FFF;
+                border-radius: 50%;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+            }
+
+            &[valign="bottom"] {
+                & > @contentHolder {
+                    padding-top: 20px;
+                    padding-bottom: 15px;
+                }
+                & > @closeButton {
+                    top: 20px;
+                }
+            }
+
+            &.WithClose {
+                cursor: pointer;
+            }
+            &:not(.WithClose) {
+                pointer-events: none;
+            }
+        }
+    </style>
+    <div anon-id="popupContainer" class="InfoTip">
+        <ui:NPatchScalableView anon-id="balloon"
+            width="44.000004"
+            height="26.150999"
+            xcells="30-38"
+            ycells="6-14"
+            padding="5"
+            d="M 4.5000002,0.49999998 H 39.499999 c 2.770016,0 4.000006,1.23012282 4.000006,4.00013862 l -7e-6,12.0000004 c -4e-6,2.770016 -1.229983,3.999874 -3.999999,3.999874 H 27.5 l -6,5.000126 -6,-5.000126 H 4.5000002 c -2.7700007,0 -4.00000022,-1.229858 -4.00000022,-3.999874 V 4.5000252 c 0,-2.7700158 1.22999952,-4.00002522 4.00000022,-4.00002522 z"
+            >
+        </ui:NPatchScalableView>
+        <div anon-id="contentHolder"></div>
+    </div>
+</div>

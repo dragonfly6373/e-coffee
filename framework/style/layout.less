@@ -1,0 +1,71 @@
+@import "layout-includes.less";
+
+html {
+    #sys-hbox();
+}
+body {
+    flex: 1;
+    #sys-vbox();
+}
+hbox {
+    #sys-hbox();
+}
+vbox {
+    #sys-vbox();
+}
+box {
+    display: flex;
+}
+vbox > *,
+hbox > *,
+box > * {
+    flex-shrink: 0;
+}
+
+/* standard orientation and segmentation */
+
+div[orient="vertical"],
+box[orient="vertical"] {
+    #sys-vbox();
+}
+div[orient="horizontal"],
+box[orient="horizontal"] {
+    #sys-hbox();
+}
+
+*[flex='1'] {
+    #sys-flex(1);
+}
+*[flex='2'] {
+    #sys-flex(2);
+}
+*[flex='3'] {
+    #sys-flex(3);
+}
+*[flex='4'] {
+    #sys-flex(4);
+}
+*[flex='5'] {
+    #sys-flex(5);
+}
+*[flex='6'] {
+    #sys-flex(6);
+}
+*[flex='7'] {
+    #sys-flex(7);
+}
+*[flex='8'] {
+    #sys-flex(8);
+}
+*[flex='9'] {
+    #sys-flex(9);
+}
+*[flex='10'] {
+    #sys-flex(10);
+}
+*[flex='11'] {
+    #sys-flex(11);
+}
+*[flex='12'] {
+    #sys-flex(12);
+}

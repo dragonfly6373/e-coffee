@@ -1,0 +1,40 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @listEditorsContainer {
+            margin-top: 1em;
+            margin-left: 2em;
+            justify-content: center;
+            & > .ListItemEditor {
+                justify-content: center;
+                & icon.RemoveAction {
+                    width: 1.5em;
+                    height: 1.5em;
+                    font-size: 1.5em;
+                    color: #F00;
+                    #sys-no-select();
+                    cursor: pointer;
+                    align-items: center;
+                }
+            }
+            & > .ListItemAction {
+                justify-content: center;
+            }
+        }
+        @listHeader {
+            align-items: center;
+        }
+        @addMoreButton {
+            cursor: pointer;
+        }
+    </style>
+    <icon anon-id="dragIcon" class="DragButton"></icon>
+    <vbox flex="1">
+        <hbox anon-id="listHeader">
+            <div anon-id="listTitle" flex="1" class="EditorLabel">List:</div>
+            <button type="button" anon-id="addMoreButton"><icon class="plus"></icon></button>
+        </hbox>
+        <vbox anon-id="listEditorsContainer">
+
+        </vbox>
+    </vbox>
+</hbox>

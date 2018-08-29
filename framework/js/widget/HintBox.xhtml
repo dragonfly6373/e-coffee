@@ -1,0 +1,41 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0" class="HintBox">
+    <style>
+    @this {
+        background-color: #e8f6ff;
+        border-radius: 0.2em;
+        border: 0.1em solid #c9e4f9;
+        padding: 1em;
+        margin-bottom: 1em;
+        align-items: center;
+
+        & > .Message {
+            flex-basis: 1em;
+            width: 1em;
+            overflow: hidden;
+            color: #5da9db;
+            margin-right: 0.5em;
+        }
+        & > .ActionGroup {
+            justify-content: center;
+            & > .Action {
+                padding: 0.5em 0.5em;
+                line-height: 1em;
+                font-size: 1em;
+                font-weight: normal;
+            }
+        }
+        &.Danger {
+            background-color: #ffeded;
+            border: 0.1em solid #f4c4c2;
+            & > .Message {
+                color: #ee3523;
+            }
+        }
+    }
+    </style>
+
+    <label anon-id="message" class="Message" flex="1"></label>
+    <vbox class="ActionGroup">
+        <button class="Action" type="button" anon-id="doneButton" role="primary"><span anon-id="doneLabel"></span></button>
+    </vbox>
+</hbox>

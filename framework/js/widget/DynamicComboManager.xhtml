@@ -1,0 +1,103 @@
+<button xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            white-space: nowrap;
+            text-align: left;
+            position: relative;
+            #sys-hbox();
+            #sys-flex(1);
+        }
+        @buttonDisplay {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            #sys-flex(1);
+        }
+        body .DynamicComboManagerPopup {
+            #sys-vbox();
+            overflow: hidden;
+            #sys-flex(1);
+            & @searchBox {
+                padding: 0.5em;
+                margin: 0.5em;
+                min-height: 2em;
+                max-height: 2em;
+                margin-top: 0em;
+                #sys-text-style();
+                align-items: center;
+                justify-content: flex-start;
+                #sys-hbox();
+
+                & @termInput {
+                    margin: 0.5em;
+                    &:focus {
+                        border: none;
+                        outline: none;
+                    }
+                }
+                & @termInput,
+                & @termInput:focus {
+                    background: none;
+                    border: none;
+                    box-shadow: none;
+                }
+                & @searchIcon {
+                    font-size: 1.5em;
+                    color: #7b7b7b;
+                }
+                & @showContentBox {
+                    color: #00bcd4;
+                    #sys-hbox();
+                    align-items: end;
+                    justify-content: flex-end;
+                }
+            }
+            & @contentBox {
+                overflow: hidden;
+            }
+            &.Shown @contentBox {
+                min-height: 15em;
+                max-height: 25em;
+            }
+            & @contentPreview:not(.Active) {
+                display: none;
+            }
+            & @contentPreview {
+                overflow-x: hidden;
+                overflow-y: auto;
+                max-width: 35em;
+                padding-left: 1em;
+                padding-right: 1em;
+                #sys-flex(1);
+            }
+            
+            & @list.Active {
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            & @list:not(.PreviewMode) {
+                #sys-flex(1);
+            }
+            & @list.PreviewMode {
+                width: 15em;
+                min-width: 15em;
+                max-width: 15em;
+            }
+        }
+
+    </style>
+    <span anon-id="buttonDisplay"></span><icon class="menu-down"></icon>
+    <ui:Popup anon-id="popup" verticalScroll="true">
+        <div anon-id="searchBox">
+            <icon class="magnify" anon-id="searchIcon"></icon>
+            <input type="text" placeholder="Input search term" anon-id="termInput" flex="1"/>
+            <label for="showContentCheckBox" anon-id="showContentBox">
+                <input type="checkbox" anon-id="showContentCheckBox" checked="checked"/>Show content preview
+            </label>
+        </div>
+        <hbox anon-id="contentBox" flex="1">
+            <vbox anon-id="list" class="ListContainer"></vbox>
+            <vbox anon-id="contentPreview" class="PreviewContainer Active" flex="1"></vbox>
+        </hbox>
+    </ui:Popup>
+</button>

@@ -1,0 +1,183 @@
+<vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        $cellSize: 1.35em;
+        $cellSpacing: 0.3em;
+        $recentCount: 9;
+        $gridSize: ($recentCount - 2) * $cellSize + ($recentCount - 3) * $cellSpacing;
+        $borderStyle: solid 1px rgba(0, 0, 0, 0.1);
+        @this {
+            min-width: 4em;
+            min-height: 2em;
+            align-items: center;
+            justify-content: center;
+        }
+        @selectColorLink {
+            font-weight: bold;
+            color: #3183e8;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        @this:not(.DefaultColor) {
+            & @selectColorLink {
+                display: none;
+            }
+        }
+        @this.DefaultColor {
+            & @selectColorButton {
+                display: none;
+            }
+        }
+        @selectColorButton {
+            background: #FFF;
+            #sys-text-style();
+            padding: 0.2em;
+
+            & @colorDisplay {
+                width: 3em;
+                height: 1.8em;
+                display: inline-block;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gECDxgec3kTFQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAP0lEQVQY06WOuQ0AMAwCwcos3n8cy8OYNJHyFSlyJUIczExhIAnujhXDg2ehVRVWxQl1pBEBknPhcppthf+THdWPE5YQuNYzAAAAAElFTkSuQmCC);
+
+                & > @colorDisplayInner {
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        body .ColorPickerPopup {
+            padding: $cellSpacing * 2;
+            background: $app_bg;
+            .z-depth-4dp();
+
+            & @infoText {
+                font-size: 0.9em;
+                margin-bottom: 0.5em;
+            }
+            & @inputPane > input {
+                width: 0em;
+                margin-right: $cellSpacing;
+                text-align: center;
+
+                &@clearButton {
+                    width: auto;
+                }
+            }
+
+            & @recentColorsPane {
+                margin: $cellSpacing 0em;
+
+                & > * {
+                    width: $cellSize;
+                    height: $cellSize;
+
+                    box-sizing: border-box;
+                    border: $borderStyle;
+                    border-radius: 0.2em;
+
+                    cursor: pointer;
+                    &:hover {
+                        border-color: rgba(0, 0, 0, 0.3);
+                        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1)
+                    }
+
+                    & + * {
+                        margin-left: $cellSpacing;
+                    }
+                }
+            }
+
+            & @chooserPane {
+                & > @opacityScale {
+                    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4gECDxgec3kTFQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAP0lEQVQY06WOuQ0AMAwCwcos3n8cy8OYNJHyFSlyJUIczExhIAnujhXDg2ehVRVWxQl1pBEBknPhcppthf+THdWPE5YQuNYzAAAAAElFTkSuQmCC);
+                }
+
+                & > .Scale {
+                    height: $gridSize;
+                    width: $cellSize;
+                    box-sizing: border-box;
+                    position: relative;
+
+                    border: $borderStyle;
+                    border-radius: 0.2em;
+                    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3);
+
+                    & + .Scale {
+                        margin-left: $cellSpacing;
+                    }
+
+                    &.VScale > @opacityBackground {
+                        box-sizing: border-box;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        right: 0px;
+                        bottom: 0px;
+
+                        border: none;
+                        border-radius: 0.2em;
+                    }
+
+                    & > .Pin {
+                        position: absolute;
+                        width: 0.7em;
+                        height: 0.7em;
+                        border: solid 2px #FFF;
+                        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+                        border-radius: 50%;
+                        left: 0px;
+                        top: 0px;
+                        background: rgba(255, 255, 255, 0.2);
+                    }
+                    &.VScale > .Pin {
+                        width: 100%;
+                        height: $cellSize / 3;
+                        box-sizing: content-box;
+                        left: -2px;
+                        border-radius: 0.2em;
+                    }
+                }
+
+                & > @hueValueGrid {
+                    width: $gridSize;
+                    overflow: hidden;
+                    border: none;
+
+                    & > img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 0.2em;
+                        border: $borderStyle;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+    </style>
+    <label anon-id="selectColorLink">Select</label>
+    <button type="button" anon-id="selectColorButton">
+        <span anon-id="colorDisplay"><span anon-id="colorDisplayInner"></span></span>
+        <ui:Popup anon-id="popup">
+            <vbox>
+                <label anon-id="infoText"></label>
+                <hbox anon-id="inputPane">
+                    <input type="text" anon-id="hexInput" flex="3" value="#336699" />
+                    <input type="text" anon-id="opacityInput" flex="2" value="100%" />
+                    <input type="button" role="danger" anon-id="clearButton" value="Clear" />
+                </hbox>
+                <hbox anon-id="recentColorsPane">
+                </hbox>
+                <hbox anon-id="chooserPane">
+                    <div class="Scale" anon-id="hueValueGrid">
+                        <img src="data:image/png;base64,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" />
+                        <div class="Pin"></div>
+                    </div>
+                    <div class="Scale VScale" anon-id="satScale"><div class="Pin"></div></div>
+                    <div class="Scale VScale" anon-id="opacityScale"><div anon-id="opacityBackground"></div><div class="Pin"></div></div>
+                </hbox>
+            </vbox>
+        </ui:Popup>
+    </button>
+</vbox>

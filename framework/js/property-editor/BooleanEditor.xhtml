@@ -1,0 +1,21 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            align-items: center;
+            justify-content: center;
+            & .EditorInput {
+                justify-content: flex-end;
+                -webkit-justify-content: flex-end;
+            }
+        }
+        @booleanInput {
+            margin-left: 1em;
+        }
+    </style>
+    <icon anon-id="dragIcon" class="DragButton"></icon>
+    <label anon-id="booleanTitle" for="checkBox" class="EditorLabel">Text:</label>
+    <hbox anon-id="booleanInput" class="EditorInput" >
+        <input type="checkbox" anon-id="checkBox" checked="false" mode="switch"/>
+        <label for="checkBox"></label>
+    </hbox>
+</hbox>

@@ -1,0 +1,18 @@
+<input type="text">
+    <style>
+        body .AnonId_popupContainer.AutoCompleteTextPopup {
+            padding: 0.2em;
+            & .AnonId_list .Item {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 0.6em 0.5em;
+                cursor: default;
+                &.Selected {
+                    background: @primary_color;
+                    color: @inverted_text_color;
+                }
+            }
+        }
+    </style>
+</input>

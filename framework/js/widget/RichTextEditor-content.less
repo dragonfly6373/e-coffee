@@ -1,0 +1,38 @@
+body {
+    margin: 0px;
+    padding: 1.5em;
+    
+    font-family: Arial, Helvertica, sans-serif;
+    font-size: 0.9em;
+    overflow-y: hidden;
+}
+
+body > *:first-child,
+body > *:first-child > *:first-child,
+body > *:first-child > *:first-child > *:first-child,
+body > *:first-child > *:first-child > *:first-child > *:first-child,
+body > *:first-child > *:first-child > *:first-child > *:first-child > *:first-child,
+body > *:first-child > *:first-child > *:first-child > *:first-child > *:first-child > *:first-child {
+    margin-top: 0px;
+}
+button.CMSMedia {
+    position: relative;
+    border: none !important;
+    outline: none;
+}
+button.CMSMedia:after {
+    display: block;
+    content: "";
+    font-size: 15pt;
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    text-align: center;
+    vertical-align: center;
+}
+button.CMSMediaYoutube:after {
+    content: "Youtube Video";
+}

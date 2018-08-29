@@ -1,0 +1,86 @@
+<div class="Sys_DialogContainer">
+    <style>
+        body .BoldDialogFrame {
+            border: none;
+            .z-depth-24dp();
+            overflow: hidden;
+
+            & @dialogHeaderPane {
+                padding: 0em;
+                border-bottom: none;
+                align-items: stretch;
+            }
+
+            & @closeContainer {
+                display: none;
+            }
+
+            & @dialogTitleContainer,
+            & @dialogBody,
+            & @dialogFooter {
+                padding: 2em;
+            }
+
+            & @dialogTitleContainer {
+                padding-bottom: 0em;
+            }
+            & @dialogFooter {
+                padding-top: 0em;
+
+                & button {
+                    font-size: 1.1em;
+                    text-transform: uppercase;
+                    padding: 0.5em 1em;
+                }
+            }
+
+            & @dialogBody {
+                border-top: none;
+            }
+            & @dialogTitle {
+                font-weight: 500;
+                display: block;
+                font-size: unit(20 * @dp, em);
+                color: rgba(0, 0, 0, 1);
+                text-shadow: none;
+
+                padding: 0em;
+            }
+
+            & @titleImage {
+                height: 12em;
+            }
+
+            & @busyIndicator {
+                background: rgba(0, 0, 0, 0.3) !important;
+            }
+        }
+
+        body .BoldDialogOverlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+    </style>
+    <vbox anon-id="dialogFrame" class="BoldDialogFrame" tabindex="0">
+        <vbox anon-id="dialogHeaderPane">
+            <img anon-id="titleImage" />
+            <div flex="1" anon-id="dialogTitleContainer">
+                <strong anon-id="dialogTitle">Dialog Title</strong>
+                <span anon-id="dialogSubTitle"></span>
+            </div>
+            <div anon-id="closeContainer">
+                <i anon-id="dialogClose" sys-icon="close"></i>
+            </div>
+        </vbox>
+        <vbox flex="1" anon-id="dialogBody">
+        </vbox>
+        <hbox anon-id="dialogFooter">
+            <hbox anon-id="dialogFooterStartPane"></hbox>
+            <hbox anon-id="dialogFooterMiddlePane" flex="1"></hbox>
+            <hbox anon-id="dialogFooterEndPane"></hbox>
+        </hbox>
+        <hbox anon-id="busyIndicator">
+            <ui:ProgressBar anon-id="progressWidget" />
+        </hbox>
+    </vbox>
+</div>

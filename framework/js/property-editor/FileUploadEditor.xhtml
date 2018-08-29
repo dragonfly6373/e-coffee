@@ -1,0 +1,34 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            align-items: center;
+            & .EditorInput {
+                justify-content: flex-end;
+                -webkit-justify-content: flex-end;
+            }
+        }
+
+        @selectionInput {
+            margin-left: 1em;
+        }
+
+        @fileUploadView {
+            height: 17em;
+            box-sizing: content-box;
+            & .PreviewWrapper {
+                display: flex;
+            }
+            & .widget_FileUploadDefaultPreviewer {
+                height: 15em;
+            }
+        }
+    </style>
+    <div anon-id="fileTitle" class="EditorLabel">File:</div>
+    <hbox anon-id="selectionInput" class="EditorInput">
+        <ui:FileUploadView anon-id="fileUploadView" max="1" accept="jpg,jpeg,png,gif">
+            <empty-message>
+                <strong>Click here or drag and drop a file here to upload.</strong>
+            </empty-message>
+        </ui:FileUploadView>
+    </hbox>
+</hbox>

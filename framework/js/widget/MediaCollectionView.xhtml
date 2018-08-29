@@ -1,0 +1,89 @@
+<div xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+        }
+        
+        @fullscreenView {
+            display: none;
+        }
+        
+        .ItemViewSeeMore,
+        .ItemView {
+            cursor: pointer;
+        }
+        
+        body .MediaCollectionFullscreenView.AnonId_fullscreenView {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            background: rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            
+            & > .AnonId_fullscreenImageView {
+                position: absolute;
+                top: 1em;
+                left: 1em;
+                bottom: 1em;
+                right: 1em;
+                overflow: visible;
+                
+                & > img {
+                    transition: all ease 0.3s;
+                    box-shadow: 0.2em 0.2em 0.5em rgba(0, 0, 0, 0.4);
+                }
+            }
+            
+            & > button:not(.AnonId_closeButton) {
+                position: absolute;
+                font-size: 3em;
+                padding: 1em 0em;
+                
+                top: 50%;
+                margin-top: -2em;
+                background: transparent;
+                border-radius: 0px;
+                opacity: 0.1;
+                transition: all ease 0.3s;
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    opacity: 1;
+                }
+                
+                & > icon {
+                    color: #FFF;
+                }
+            }
+            & > .AnonId_closeButton {
+                position: absolute;
+                right: 0.3em;
+                top: 0.3em;
+                font-size: 2em;
+                padding: 0.2em;
+                background: transparent;
+                border-radius: 50%;
+                
+                color: #FFF;
+            }
+            &:not(.HasPrev) .AnonId_prevButton,
+            &:not(.HasNext) .AnonId_nextButton {
+                display: none;
+            }
+            
+            & > .AnonId_prevButton {
+                left: 0px;
+            }
+            & > .AnonId_nextButton {
+                right: 0px;
+            }
+        }
+    </style>
+    <div class="MediaCollectionFullscreenView" anon-id="fullscreenView">
+        <ui:ImageView anon-id="fullscreenImageView" crop-center="false" />
+        <button anon-id="prevButton"><icon class="chevron-left"></icon></button>
+        <button anon-id="nextButton"><icon class="chevron-right"></icon></button>
+        <button anon-id="closeButton"><icon class="close"></icon></button>
+    </div>
+</div>

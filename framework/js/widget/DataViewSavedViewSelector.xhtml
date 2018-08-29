@@ -1,0 +1,221 @@
+<button>
+    <style>
+        @this {
+            padding-right: 0.2em;
+            text-align: left;
+        }
+        
+        body .DataViewSavedViewSelectorPopup {
+            .z-depth(4);
+        }
+        
+        body .DataViewSavedViewSelectorList {
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            
+            #sys-no-select();
+            
+            & .DropHint {
+                height: 0em;
+                position: relative;
+                &:before {
+                    display: block;
+                    content: "";
+                    height: 0.3em;
+                    background: @primary_color;
+                    opacity: 0.5;
+                    position: absolute;
+                    top: -0.15em;
+                    left: 0em;
+                    right: 0em;
+                }
+            }
+        }
+        
+        body .DataViewSavedViewSelectorList .SavedViewItem {
+            padding: 0.5em 1em 0.5em 0.5em;
+            align-items: center;
+            cursor: default;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                background: fadeout(@primary_color, 80%);
+            }
+            
+            &.Selected {
+                background: @primary_color;
+                color: #FFF;
+                &:hover {
+                    background: lighten(@primary_color, 10%);
+                }
+            }
+
+            
+            & > * + * {
+                margin-left: 0.5em;
+            }
+            
+            &:not(.Null) {
+                border-top: solid 1px rgba(0, 0, 0, 0.2);
+            }
+            
+            &.Selected,
+            &.Selected + .SavedViewItem {
+                border-top: none;
+            }
+            
+            &.Null > .ItemDragger {
+                &:before {
+                    .mdi-icon-name-to-content("checkbox-blank-circle");
+                }
+                transform: scale(1.3);
+                font-weight: 900;
+                cursor: default;
+                pointer-events: none;
+            }
+            
+            &.Null .AnonId_itemDescriptionLabel {
+                opacity: 0.5;
+            }
+            
+            & > .ItemDragger {
+                padding: 0.3em;
+                cursor: move;
+                
+                &:not(:hover) {
+                    opacity: 0.5;
+                }
+            }
+            
+            &.JustDropped {
+                box-shadow: 0px 0px 4px @primary_color;
+                transform: scale(1.02);
+            }
+            
+            & .AnonId_itemNameLabel {
+                font-weight: bold;
+            }
+            & .AnonId_itemToolbar {
+                align-items: center;
+            }
+            &.DefaultView .AnonId_makeDefaultButton,
+            &.DefaultView .AnonId_deleteButton,
+            &:not(.DefaultView) .AnonId_defaultMarker,
+            &.Null .AnonId_itemToolbar {
+                display: none;
+            }
+            
+            & .AnonId_itemToolbar {
+                margin-left: 2em;
+                transition: opacity 0.8s ease;
+            }
+            
+            &:not(:hover) .AnonId_itemToolbar .Button {
+                opacity: 0;
+            }
+            &:hover .AnonId_itemToolbar:not(:hover) .Button {
+                opacity: 0.4;
+            }
+            
+            & .AnonId_defaultMarker {
+                background: rgba(255, 255, 255, 0.5);
+                color: @primary_color;
+                font-size: 0.95em;
+                font-weight: bold;
+                opacity: 0.7;
+                #sys-hbox();
+                align-items: center;
+                
+                padding: 0.2em 0.5em;
+                border-radius: 0.2em;
+                
+                & icon {
+                    font-size: 1.4em;
+                    margin-right: 0.3em;
+                }
+            }
+            
+            & .AnonId_makeDefaultButton {
+                background: darken(@primary_color, 10%);
+                color: #fff;
+                display: inline-block;
+                padding: 0.3em 0.7em;
+                cursor: pointer;
+                border-radius: 0.2em;
+                
+                &:hover {
+                    background: darken(@primary_color, 25%);
+                }
+            }
+            & .AnonId_deleteButton {
+                color: @problem_color;
+                display: inline-block;
+                font-size: 1.6em;
+                margin-left: 0.2em;
+                padding: 0.2em;
+                cursor: pointer;
+                
+                &:hover {
+                    color: darken(@problem_color, 25%);
+                }
+            }
+        }
+        
+        @nameLabel {
+            transition: color 1s ease;
+        }
+        
+        @displayBox.Null @descriptionLabel {
+            opacity: 0.5;
+        }
+        @displayBox.Modified @nameLabel {
+            color: @problem_color;
+        }
+        
+        body .DataViewSavedViewSelectorList .SavedViewItem .AnonId_itemDescriptionLabel,
+        @displayBox @descriptionLabel {
+            & > span + span {
+                margin-left: 1em;
+            }
+            & > span > .Value {
+                color: @primary_color;
+            }
+        }
+        
+        body .DataViewSavedViewSelectorList .SavedViewItem.Selected .AnonId_itemDescriptionLabel {
+            & > span > .Value {
+                color: #FFF;
+                text-decoration: underline;
+            }
+        }
+        
+        
+    </style>
+    <vbox flex="1" anon-id="displayBox">
+        <hbox>
+            <strong anon-id="nameLabel">&#160;</strong>
+            <span anon-id="modifiedIndicator"></span>
+        </hbox>
+        <span anon-id="descriptionLabel">&#160;</span>
+    </vbox>
+    <icon class="menu-down"></icon>
+    <ui:Popup anon-id="popup" verticalScroll="true">
+        <vbox anon-id="list" class="DataViewSavedViewSelectorList">
+            <ui:RepeaterView anon-id="itemRepeaterView" tag="vbox">
+                <hbox class="SavedViewItem">
+                    <icon class="menu ItemDragger" title="Drag to re-order"></icon>
+                    <vbox flex="1" anon-id="infoSection">
+                        <span anon-id="itemNameLabel"></span>
+                        <span anon-id="itemDescriptionLabel"></span>
+                    </vbox>
+                    <hbox anon-id="itemToolbar">
+                        <span anon-id="makeDefaultButton" class="Button" title="Mark this saved view as default">Make default</span>
+                        <span anon-id="deleteButton" class="Button" title="Delete this saved view"><icon class="delete-circle"></icon></span>
+                        <span anon-id="defaultMarker"><icon class="check"></icon>Default</span>
+                    </hbox>
+                </hbox>
+            </ui:RepeaterView>
+        </vbox>
+    </ui:Popup>
+</button>

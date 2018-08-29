@@ -1,0 +1,24 @@
+<button xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            white-space: nowrap;
+            text-align: left;
+            position: relative;
+        }
+        @buttonDisplay {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        body .ComboManagerPopup {
+            #sys-vbox();
+        }
+    </style>
+    <span anon-id="buttonDisplay"></span><icon class="menu-down"></icon>
+    <ui:Popup anon-id="popup" verticalScroll="true">
+        <vbox anon-id="list" class="ListContainer">
+
+        </vbox>
+    </ui:Popup>
+</button>
