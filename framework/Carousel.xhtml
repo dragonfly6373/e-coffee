@@ -1,0 +1,93 @@
+<hbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            position: relative;
+            height: 100%;
+            & @previousButton, & @nextButton {
+                #sys-media-lg-up({
+                    visibility: hidden;
+                });
+                position: absolute;
+                top: 50%;
+                margin-top: -1.5em;
+                padding: 1em 0;
+                cursor: pointer;
+                color: #FFF;
+                font-size: 2em;
+                &:hover {
+                    background-color: rgba(250, 250, 250, 0.5);
+                }
+            }
+            &:hover {
+                & @previousButton, & @nextButton {
+                    visibility: visible;
+                }
+            }
+            & @previousButton {
+                left: 0em;
+                border-top-right-radius: 0.1em;
+                border-bottom-right-radius: 0.1em;
+            }
+            & @nextButton {
+                right: 0em;
+                border-top-left-radius: 0.1em;
+                border-bottom-left-radius: 0.1em;
+            }
+            & @statusContainer {
+                &.Hidden {
+                    display: none;
+                }
+                position: absolute;
+                display: block;
+                text-align: center;
+                bottom: 0.8em;
+                left: 0;
+                right: 0;
+                & icon {
+                    color: #666;
+                    padding: 0.4em;
+                    font-size: 0.8em;
+                    opacity: 0.5;
+                    cursor: pointer;
+                    &.Active {
+                        color: #FFF;
+                    }
+                    &:hover {
+                        opacity: 1;
+                    }
+
+                    & + icon {
+                        margin-left: 0.3em;
+                    }
+                }
+
+                #sys-media-under-lg({
+                    bottom: 0.5em;
+
+                    & icon {
+                        font-size: 0.25em;
+                    }
+                });
+            }
+        }
+        @imageContainer, body .CarouselImageContainer {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            & .SliderItem {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                position: relative;
+                & > img {
+                    display: none;
+                    position: absolute;
+                }
+            }
+        }
+    </style>
+    <hbox anon-id="imageContainer"></hbox>
+    <span anon-id="previousButton"><icon class="chevron-left"></icon></span>
+    <span anon-id="nextButton"><icon class="chevron-right"></icon></span>
+    <hbox anon-id="statusContainer" class="Hidden"></hbox>
+</hbox>
