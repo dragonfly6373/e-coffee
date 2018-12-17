@@ -19,10 +19,12 @@
     "license": "NONE",
     "devDependencies": {
         "electron": "~1.8.4",
-        "electron-builder": "^20.11.1"
+        "electron-builder": "^20.38.3",
+        "gulp": "^4.0.0",
+        "webpack": "^4.27.1"
     },
     "dependencies": {
-        "less": "^3.0.1",
-        "sqlite3": "^4.0.0"
+        "less": "^3.9.0",
+        "sqlite3": "^4.0.4"
     }
 }
