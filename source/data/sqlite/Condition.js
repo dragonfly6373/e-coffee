@@ -1,5 +1,6 @@
-var Condition = function(query) {
-    this.query = query;
+
+var Condition = function(queryStr) {
+    this.query = queryStr;
     this.queue = [];
 };
 
@@ -63,7 +64,7 @@ Condition.__proto__ = function() {
             return new Condition(" " + name + " IS NOT NULL");
         },
         iLike: function(name, value) {
-            return new Condition(" " + name + " ILIKE " + isolateDataType(value));
+            return new Condition(" " + name + " LIKE '%" + value + "%'");
         }
     }
 }();
