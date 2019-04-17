@@ -1,0 +1,20 @@
+<vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+    </style>
+    <hbox class="InputGroup">
+        <label class="FieldLabel">Name:</label>
+        <input type="text" anon-id="itemName"/>
+    </hbox>
+    <hbox class="InputGroup">
+        <label>Enable:</label>
+        <input type="checkbox" anon-id="ckbEnable"/>
+    </hbox>
+    <hbox class="InputGroup">
+        <label class="FieldLabel">Available Size:</label>
+        <ui:SelectBox anon-id="selectSizes" multiple-select="true" dropdown="false"></ui:SelectBox>
+    </hbox>
+    <hbox class="InputGroup">
+        <label>Descriptions:</label>
+        <textarea anon-id="itemDescription"></textarea>
+    </hbox>
+</vbox>
