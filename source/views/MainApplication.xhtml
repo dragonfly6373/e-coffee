@@ -54,19 +54,19 @@
     <hbox anon-id="pageHeaderBar">
         <hbox>
             <a anon-id="toggleMainMenuButton"><icon class="menu"></icon></a>
-            <strong anon-id="pageTitle" flex="1">E-Coffee</strong>
+            <strong anon-id="pageTitle" flex="1">TEST</strong>
         </hbox>
         <hbox>
             <span anon-id="currentPage"></span>
         </hbox>
     </hbox>
-    <hbox anon-id="pageBody">
+    <hbox anon-id="pageBody" flex="1">
         <vbox anon-id="leftMenuContainer">
-            <!-- <ui:Menu anon-id="mainMenu"/> -->
+            <ui:Menu anon-id="mainMenu"/>
         </vbox>
         <vbox class="ContentPane" flex="1">
             <ui:PageContentWrapper anon-id="pageContentWrapper" flex="1"></ui:PageContentWrapper>
+            <hbox anon-id="pageCover"></hbox>
         </vbox>
     </hbox>
-    <hbox anon-id="pageCover"></hbox>
 </vbox>

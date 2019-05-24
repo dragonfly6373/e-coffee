@@ -6,6 +6,7 @@ function MainApplication() {
     }, this.toggleMainMenuButton);
     this.bind("click", function() {
         if (this.mainMenu.isActive()) this.mainMenu.active(false);
+        this.activePageCover(false);
     }, this.pageCover);
     //this.bind("p:deactivate", this.activePageCover.bind(this, false), this.mainMenu.node());
 }
@@ -19,11 +20,7 @@ MainApplication.prototype.onAttached = function() {
 }
 
 MainApplication.prototype.activePageCover = function(isActive) {
-    if (isActive) {
-        Dom.addClass(this.pageCover, "Activate");
-    } else {
-        Dom.removeClass(this.pageCover, "Activate");
-    }
+    Dom.toggleClass(this.pageCover, "Activate", isActive);
 }
 
 MainApplication.prototype.navigateTo = function(component) {
