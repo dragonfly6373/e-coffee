@@ -52,15 +52,21 @@
         }
     </style>
     <hbox anon-id="pageHeaderBar">
-        <a anon-id="toggleMainMenuButton"><icon class="menu"></icon></a>
-        <strong anon-id="pageTitle" flex="1">E-Coffee</strong>
+        <hbox>
+            <a anon-id="toggleMainMenuButton"><icon class="menu"></icon></a>
+            <strong anon-id="pageTitle" flex="1">E-Coffee</strong>
+        </hbox>
+        <hbox>
+            <span anon-id="currentPage"></span>
+        </hbox>
     </hbox>
-    <vbox class="ContentPane" flex="1">
-        <ui:PageContentWrapper anon-id="pageContentWrapper" flex="1"></ui:PageContentWrapper>
-    </vbox>
+    <hbox anon-id="pageBody">
+        <vbox anon-id="leftMenuContainer">
+            <!-- <ui:Menu anon-id="mainMenu"/> -->
+        </vbox>
+        <vbox class="ContentPane" flex="1">
+            <ui:PageContentWrapper anon-id="pageContentWrapper" flex="1"></ui:PageContentWrapper>
+        </vbox>
+    </hbox>
     <hbox anon-id="pageCover"></hbox>
-    <hbox anon-id="PageFooter">
-        Page Footer
-    </hbox>
-    <ui:Menu anon-id="mainMenu"/>
 </vbox>

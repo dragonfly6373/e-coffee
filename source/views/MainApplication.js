@@ -7,7 +7,7 @@ function MainApplication() {
     this.bind("click", function() {
         if (this.mainMenu.isActive()) this.mainMenu.active(false);
     }, this.pageCover);
-    this.bind("p:deactivate", this.activePageCover.bind(this, false), this.mainMenu.node());
+    //this.bind("p:deactivate", this.activePageCover.bind(this, false), this.mainMenu.node());
 }
 __extend(BaseTemplatedWidget, MainApplication);
 
