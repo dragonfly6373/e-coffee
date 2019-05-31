@@ -22,6 +22,7 @@ MainMenu.prototype.onAttached = function() {
 }
 
 MainMenu.prototype.active = function(active) {
+    console.log("Active MainMenu:", this._active, active);
     if (active) {
         Dom.addClass(this.node(), "Activate");
         this._active = true;
@@ -116,7 +117,6 @@ MainMenu.data = [
                 id: "user_info",
                 name: "User Info",
                 icon: "information-outline",
-                style: {},
                 implementation: null
             }, {
                 id: "logout",
@@ -138,7 +138,7 @@ MainMenu.data = [
                 id: "category",
                 name: "Category",
                 icon: "food",
-                implementation: null
+                implementation: CategoryManagement
             }, {
                 id: "floor_table",
                 name: "Floor & Table",
