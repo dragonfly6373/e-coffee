@@ -1,14 +1,15 @@
 function MainApplication() {
     BaseTemplatedWidget.call(this);
     this.bind("click", function() {
-        this.activePageCover(true);
-        this.mainMenu.active(true);
+        this.activeMainMenu(true);
     }, this.toggleMainMenuButton);
     this.bind("click", function() {
-        if (this.mainMenu.isActive()) this.mainMenu.active(false);
-        this.activePageCover(false);
+        this.activeMainMenu(false);
     }, this.pageCover);
-    //this.bind("p:deactivate", this.activePageCover.bind(this, false), this.mainMenu.node());
+    this.bind(MainMenu.DEACTIVATE_EVENT, this.activeMainMenu.bind(this, false), this.mainMenu);
+    this.bind(MainMenu.ACTIVE_COMPONENT_EVENT, function(event) {
+        console.log("Navigate to:", event);
+    }, this.mainMenu);
 }
 __extend(BaseTemplatedWidget, MainApplication);
 
@@ -19,7 +20,9 @@ MainApplication.prototype.onAttached = function() {
     this.mainMenu.activeMenu(defaultPage.id);
 }
 
-MainApplication.prototype.activePageCover = function(isActive) {
+MainApplication.prototype.activeMainMenu = function(isActive) {
+    console.log("Active Main Menu:", isActive);
+    this.mainMenu.active(isActive);
     Dom.toggleClass(this.pageCover, "Activate", isActive);
 }
 

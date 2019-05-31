@@ -1,36 +1,46 @@
-function Menu() {
+function MainMenu() {
 	BaseTemplatedWidget.call(this);
     this._active = false;
     this._currentActive = null;
     this.bind("click", this.active.bind(this, false), this.closeButton);
-	this.install(Menu.data);
+    this.bind("click", this.activeComponent.bind(this), this.mainMenuContainer);
+	this.install(MainMenu.data);
 }
-__extend(BaseTemplatedWidget, Menu);
+__extend(BaseTemplatedWidget, MainMenu);
+MainMenu.DEACTIVATE_EVENT = "ui:deactivate";
+MainMenu.ACTIVE_COMPONENT_EVENT = "ui:component_change";
 
-Menu.prototype.active = function(active) {
+MainMenu.prototype.active = function(active) {
     if (active) {
         Dom.addClass(this.node(), "Activate");
         this._active = true;
-    } else {
+    } else if (this._active) {
         Dom.removeClass(this.node(), "Activate");
         this._active = false;
-        Dom.emitEvent("p:deactivate", this.node());
+        Dom.emitEvent(MainMenu.EMIT_DEACTIVATE_EVENT, this.node());
     }
 }
 
-Menu.prototype.isActive = function() {
+MainMenu.prototype.isActive = function() {
     return this._active;
 }
 
-Menu.prototype.getDefaultPageId = function() {
+MainMenu.prototype.getDefaultPageId = function() {
     return "home";
 }
 
-Menu.prototype.getPageById = function(id) {
+MainMenu.prototype.getPageById = function(id) {
     return this[id];
 }
 
-Menu.prototype.install = function(data) {
+MainMenu.prototype.activeComponent = function(event) {
+    var component = Dom.findUpwardForData(event.target, "_data");
+    console.log("Active Component:", event.target, component);
+    if (!component) return;
+    Dom.emitEvent(MainMenu.ACTIVE_COMPONENT_EVENT, this.node(), {component: component._data});
+}
+
+MainMenu.prototype.install = function(data) {
 	for (i in data) {
         var menu = data[i];
         if (menu.name) {
@@ -55,7 +65,7 @@ Menu.prototype.install = function(data) {
     }
 }
 
-Menu.prototype.activeMenu = function(id) {
+MainMenu.prototype.activeMenu = function(id) {
     var menuItem = this[id];
     if (menuItem) {
         if (this._currentActive) Dom.removeClass(this._currentActive.__node, "Active");
@@ -63,7 +73,7 @@ Menu.prototype.activeMenu = function(id) {
     }
 }
 
-Menu.prototype.newMenuItem = function(data, className) {
+MainMenu.prototype.newMenuItem = function(data, className) {
     var class_name = "MenuItem" + (className ? " " + className : "");
     if (!data.implement && data.components) class_name += " Mute";
     var menuItem = Dom.newDOMElement({
@@ -86,7 +96,7 @@ Menu.prototype.newMenuItem = function(data, className) {
     return menuItem;
 }
 
-Menu.data = [
+MainMenu.data = [
     {
         components: [
             {

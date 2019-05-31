@@ -1,13 +1,12 @@
 <vbox xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
     <style>
-        @import "layout-includes.less";
         @pageContainer {
             #sys-flex(1, 1em);
             overflow: auto;
             position: relative;
-        }
-        @pageContainer > * {
-            #sys-flex(1);
+            & > * {
+                #sys-flex(1);
+            }
         }
 
         @iframe {
