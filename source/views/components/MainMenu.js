@@ -1,14 +1,25 @@
 function MainMenu() {
 	BaseTemplatedWidget.call(this);
+    var thiz = this;
     this._active = false;
     this._currentActive = null;
     this.bind("click", this.active.bind(this, false), this.closeButton);
-    this.bind("click", this.activeComponent.bind(this), this.mainMenuContainer);
-	this.install(MainMenu.data);
+    this.bind("click", function(event) {
+        var menuItem = Dom.findUpwardForNodeWithData(event.target, "_data");
+        thiz.activeMenu(menuItem);
+    }, this.mainMenuContainer);
 }
 __extend(BaseTemplatedWidget, MainMenu);
 MainMenu.DEACTIVATE_EVENT = "ui:deactivate";
 MainMenu.ACTIVE_COMPONENT_EVENT = "ui:component_change";
+
+MainMenu.prototype.onAttached = function() {
+    this.install(MainMenu.data);
+    if (!this._currentActive) {
+        var menuItem = this.getPageById(this.getDefaultPageId()).__node;
+        this.activeMenu(menuItem);
+    }
+}
 
 MainMenu.prototype.active = function(active) {
     if (active) {
@@ -21,10 +32,6 @@ MainMenu.prototype.active = function(active) {
     }
 }
 
-MainMenu.prototype.isActive = function() {
-    return this._active;
-}
-
 MainMenu.prototype.getDefaultPageId = function() {
     return "home";
 }
@@ -33,11 +40,25 @@ MainMenu.prototype.getPageById = function(id) {
     return this[id];
 }
 
-MainMenu.prototype.activeComponent = function(event) {
-    var component = Dom.findUpwardForData(event.target, "_data");
-    console.log("Active Component:", event.target, component);
-    if (!component) return;
-    Dom.emitEvent(MainMenu.ACTIVE_COMPONENT_EVENT, this.node(), {component: component._data});
+MainMenu.prototype.setTargetContainer = function(container) {
+    this.container = container;
+}
+
+MainMenu.prototype.activeMenu = function(menuItem) {
+    console.log("Active Menu:", menuItem);
+    var thiz = this;
+    if (menuItem) {
+        var data = menuItem._data;
+        if (this._currentActive && this._currentActive._data.id != menuItem._data.id) {
+            Dom.removeClass(this._currentActive, "Active");
+            this._currentActive = menuItem;
+        }
+        if (!data || !(data.implementation || data.src)) data = {implementation: ConstructionWidget};
+        this.container.launch(data, null, () => {
+            Dom.addClass(thiz._currentActive, "Active");
+            thiz.active(false);
+        });
+    }
 }
 
 MainMenu.prototype.install = function(data) {
@@ -65,14 +86,6 @@ MainMenu.prototype.install = function(data) {
     }
 }
 
-MainMenu.prototype.activeMenu = function(id) {
-    var menuItem = this[id];
-    if (menuItem) {
-        if (this._currentActive) Dom.removeClass(this._currentActive.__node, "Active");
-        Dom.addClass(menuItem.__node, "Active");
-    }
-}
-
 MainMenu.prototype.newMenuItem = function(data, className) {
     var class_name = "MenuItem" + (className ? " " + className : "");
     if (!data.implement && data.components) class_name += " Mute";
@@ -80,7 +93,6 @@ MainMenu.prototype.newMenuItem = function(data, className) {
         _name: "hbox",
         class: class_name,
         _style: data.style,
-        _data: data,
         _children: [
             {
                 _name: "icon",
@@ -93,6 +105,7 @@ MainMenu.prototype.newMenuItem = function(data, className) {
             }
         ]
     });
+    menuItem._data = data;
     return menuItem;
 }
 
