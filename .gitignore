@@ -1,2 +1,5 @@
 node_modules
-dist
+dist/electron-app/source/
+dist/electron-app/node_modules/
+
+package-lock.json

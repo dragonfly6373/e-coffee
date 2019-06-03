@@ -19,13 +19,15 @@
     "email": "nguyen.dang@evolus.vn",
     "license": "NONE",
     "devDependencies": {
-        "electron": "^5.0.1",
-        "electron-builder": "^20.40.2",
         "gulp": "^4.0.0",
-        "webpack": "^4.27.1"
+        "gulp-concat": "^2.6.1",
+        "gulp-less": "^4.0.1",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "^3.0.2",
+        "gulp-wrap-file": "^0.1.2",
+        "yargs": "^13.2.4"
     },
     "dependencies": {
-        "less": "^3.9.0",
-        "sqlite3": "^4.0.4"
+        "less": "^3.9.0"
     }
 }

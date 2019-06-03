@@ -52,7 +52,7 @@ Dialog.prototype.open = function (options) {
     BaseWidget.handleGlobalMouseDown();
     this.show();
 };
-const DIALOG_BUTTON_ORDER = {
+var DIALOG_BUTTON_ORDER = {
     "accept": 10,
     "cancel": 1,
     "extra1": -10,
@@ -281,9 +281,9 @@ Dialog.prototype.handleBodyKeyPress = function (event) {
     if (event.keyCode != DOM_VK_RETURN) return;
     if (!this.primaryButton) return;
 
-    let node = Dom.findUpward(event.target, function (node) {
-        return node.localName == "input" || node.localName == "select";
-    })
+    var node = Dom.findUpward(event.target, function (n) {
+        return n.localName == "input" || n.localName == "select";
+    });
 
     if (!node) return;
     this.primaryButton.click();
@@ -300,7 +300,7 @@ function BuilderBasedDialog(builder) {
 
 __extend(Dialog, BuilderBasedDialog);
 
-const DIALOG_SIZE_SPECS = {
+var DIALOG_SIZE_SPECS = {
         tiny: 120,
         mini: 200,
         smaller: 280,
@@ -339,9 +339,9 @@ BuilderBasedDialog.prototype.quit = function () {
 };
 
 Dialog.hasOpenDialog = function () {
-    for (var closable of BaseWidget.closables) {
+    BaseWidget.closables.forEach(function(closable) {
         if (__isSubClassOf(closable.constructor, Dialog)) return true;
-    }
+    });
 
     return false;
 };

@@ -52,7 +52,7 @@ Condition.__proto__ = function() {
             return new Condition(" " + name + " <= " + isolateDataType(value));
         },
         in: function(name, args) {
-            return new Condition(" " + name + " IN (" + args.map((item) => isolateDataType(item)).join(", ") + ")");
+            return new Condition(" " + name + " IN (" + args.map(function(item) { return isolateDataType(item).join(", "); }) + ")");
         },
         between: function(name, start, end) {
             return new Condition(" " + name + " BETWEEN (" + isolateDataType(start) + ", " + isolateDataType(end) + ")");

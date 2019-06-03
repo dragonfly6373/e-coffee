@@ -29,7 +29,7 @@ var DataAdapter = (function() {
         create: function(clazz, callback) {
             console.log("Create:", clazz.tablename);
             var db = getConnection();
-            var fields = clazz.columns.map(col => {
+            var fields = clazz.columns.map(function(col) {
                 return col.name + " " + convertDataByType(col.datatype) + "\n"
             }).join(",\n");
             var sql = String.format("CREATE TABLE {0} ({1})", clazz.tablename, fields);
@@ -41,10 +41,10 @@ var DataAdapter = (function() {
         insert: function(clazz, data, callback) {
             console.log("Insert:", clazz.tablename, data);
             var db = getConnection();
-            var values = clazz.columns.map(col => {
+            var values = clazz.columns.map(function(col) {
                 return convertDataByType(data[col.name], col.datatype);
             }).join(",");
-            db.run(String.format("INSERT INTO {0} ({1}) VALUES({2})", clazz.tablename, clazz.columns.map((col) => col.name).join(","), values),
+            db.run(String.format("INSERT INTO {0} ({1}) VALUES({2})", clazz.tablename, clazz.columns.map(function(col) { return col.name; }).join(","), values),
                 [],
                 function(output) {
                     if (callback) callback(output);
@@ -78,7 +78,7 @@ var DataAdapter = (function() {
             console.log("Get all:", clazz.tablename, (condition ? " with condition " + condition.build() : ""));
             var db = getConnection();
             var sql = String.format("SELECT {0} FROM {1} WHERE {2}",
-                        "rowid oid, " + clazz.columns.map((col)=> col.name).join(),
+                        "rowid oid, " + clazz.columns.map(function(col) { return col.name; }).join(),
                         clazz.tablename,
                         condition ? condition.build() : "1 = 1");
             console.log("### SQL:", sql);

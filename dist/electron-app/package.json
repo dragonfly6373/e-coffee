@@ -1,0 +1,22 @@
+{
+    "name": "electron-app",
+    "version": "1.0.0",
+    "description": "electron multi-platform application",
+    "main": "index.js",
+    "scripts": {
+        "test": "test"
+    },
+    "keywords": [
+        "node",
+        "npm",
+        "electron"
+    ],
+    "author": "nguyen.dang",
+    "license": "ISC",
+    "dependencies": {
+        "electron": "^5.0.1",
+        "electron-builder": "^20.40.2",
+        "less": "^3.9.0",
+        "sqlite3": "^4.0.4"
+    }
+}
