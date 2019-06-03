@@ -1,7 +1,7 @@
-var {src, dest, parallel, series} = require('gulp');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
+const {src, dest, parallel, series, task} = require('gulp');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
 
 function framework() {
     return src('source/framework/**/*.js')
@@ -20,26 +20,49 @@ function sqlite() {
         .pipe(uglify())
         .pipe(dest('dist/electron-app/source/'));
 }
+exports.sqlite = sqlite;
 
-function cms() {
-    return src('source/views/cms/**/*.js')
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat('cms.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(dest('dist'));
-}
+var cms = parallel(task('js', () => {
+        return src('source/views/cms/**/*.js')
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(concat('cms.pack.js'))
+            .pipe(uglify())
+            .pipe(sourcemaps.write())
+            .pipe(dest('dist/electron-app/source/widget'));
+    }), task('template', () => {
+        return src('source/views/cms/**/*.xhtml')
+            .pipe(dest('dist/electron-app/source/widget'));
+    })
+);
+exports.cms = cms;
 
-function common() {
-    return src('source/views/common/*.js')
-        .pipe(sourcemaps.init({largeFile: true}))
-        .pipe(concat('common.pack.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(dest('source/views/common/'));
-}
+var common = parallel(task('js', () => {
+        return src('source/views/common/**/*.js')
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(concat('cms.pack.js'))
+            .pipe(uglify())
+            .pipe(sourcemaps.write())
+            .pipe(dest('dist/electron-app/source/widget'));
+    }), task('template', () => {
+        return src('source/views/common/**/*.xhtml')
+            .pipe(dest('dist/electron-app/source/widget'));
+    })
+);
+
+exports.common = common;
+var component = parallel(task('js', () => {
+        return src('source/views/component/**/*.js')
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(concat('cms.pack.js'))
+            .pipe(uglify())
+            .pipe(sourcemaps.write())
+            .pipe(dest('dist/electron-app/source/widget'));
+    }), task('template', () => {
+        return src('source/views/component/**/*.xhtml')
+            .pipe(dest('dist/electron-app/source/widget'));
+    })
+);
+exports.component = component;
 
 exports.framework = parallel(framework, styles);
-exports.sqlite = sqlite;
-exports.common = common;
-exports.build_all = parallel(common, cms);
+exports.build_all = parallel(sqlite, common, cms, component);
