@@ -1,5 +1,6 @@
 node_modules
 dist/electron-app/source/
 dist/electron-app/node_modules/
+dist/electron-app/static
 
 package-lock.json

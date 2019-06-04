@@ -4,9 +4,9 @@ const fs = require("fs");
 const os = require("os");
 const sqlite3 = require("sqlite3").verbose();
 
-let less = require("less");
-let mainWindow = null;
-let currentScript = {};
+const less = require("less");
+const mainWindow = null;
+const currentScript = {};
 
 function createWindow() {
     mainWindow = new BrowserWindow({
