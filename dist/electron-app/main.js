@@ -12,6 +12,7 @@ const url = require('url');
 let mainWindow;
 
 function createWindow () {
+    console.log("Electron Create Window");
     // Create the browser window.
     mainWindow = new BrowserWindow({
         webPreferences: {

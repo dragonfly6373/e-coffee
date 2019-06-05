@@ -9,6 +9,7 @@ const mainWindow = null;
 const currentScript = {};
 
 function createWindow() {
+    console.log("App createWindow", less);
     mainWindow = new BrowserWindow({
         title: "e-coffee",
         icon: "images/app_icon.png",

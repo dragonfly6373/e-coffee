@@ -3,6 +3,7 @@ const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const clean = require('gulp-clean');
 const flatten = require('gulp-flatten');
+const wrap = require('gulp-wrap-file');
 const uglifyes = require('uglify-es');
 const composer = require('gulp-uglify/composer');
 const uglify = composer(uglifyes, console);
@@ -40,7 +41,7 @@ var cms = parallel(() => {
             .pipe(dest('dist/electron-app/source/widget'));
     }
 );
-exports.cms = cms;
+// exports.cms = cms;
 
 var common = parallel(() => {
         return src('source/views/common/**/*.js')
@@ -55,7 +56,7 @@ var common = parallel(() => {
             .pipe(dest('dist/electron-app/source/widget'));
     }
 );
-exports.common = common;
+// exports.common = common;
 
 var component = parallel(() => {
         return src('source/views/components/**/*.js')
@@ -70,7 +71,7 @@ var component = parallel(() => {
             .pipe(dest('dist/electron-app/source/widget'));
     }
 );
-exports.component = component;
+// exports.component = component;
 
 exports.static = function() {
     return src('static/**/*')
