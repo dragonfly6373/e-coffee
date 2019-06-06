@@ -19,6 +19,7 @@
     "email": "nguyen.dang@evolus.vn",
     "license": "ISC",
     "devDependencies": {
+        "child_process": "^1.0.2",
         "electron-builder": "^20.41.0",
         "gulp": "^4.0.0",
         "gulp-clean": "^0.4.0",
@@ -28,10 +29,12 @@
         "gulp-sourcemaps": "^2.6.5",
         "gulp-uglify": "^3.0.2",
         "gulp-wrap-file": "^0.1.2",
+        "path": "^0.12.7",
         "uglify-es": "^3.3.9",
         "yargs": "^13.2.4"
     },
     "dependencies": {
+        "event-stream": "^4.0.1",
         "less": "^3.9.0"
     }
 }
