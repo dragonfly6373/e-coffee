@@ -9,6 +9,18 @@ const composer = require('gulp-uglify/composer');
 const uglify = composer(uglifyes, console);
 //const uglify = require('gulp-uglify');
 
+function formatString(format) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return format.replace(/{(\d+)}/g, function(match, number) {
+        return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+}
+
+function getModule(path) {
+    var reg = new RegExp("^.*/([^/]+)/[^/]+$");
+    var result = reg.match(path);
+}
+
 function framework() {
     return src('source/framework/**/*.js')
         .pipe(concat('common-framework.pack.js'))
@@ -21,8 +33,14 @@ function styles() {
 }
 
 function sqlite() {
-    return src('source/data/sqlite/*.js')
+    return src('source/data/sqlite/model/*.js')
+        .pipe(wrap({
+            wrapper: function(content, file) {
+                return formatString('{0}\nModel.{1} = {1};\n', content, file.modName.replace(/^.*[\\\/]/, ''));
+            }
+        }))
         .pipe(concat('sqlite-db.pack.js'))
+        .pipe(wrap({wrapper: 'var DataType = { BOOLEAN: 1, INTEGER: 2, TEXT: 3, BIGINT: 4, DOUBLE: 5, FLOAT: 6, BLOB: 7, TIMESTAMP: 8 };\nvar Model = {};\n{file}'}))
         .pipe(uglify())
         .pipe(dest('dist/electron-app/source/data'));
 }

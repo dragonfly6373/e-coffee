@@ -9,4 +9,4 @@ var Category = {
         {name: "hidden", datatype: DataType.BOOLEAN},
         {name: "deleted", datatype: DataType.BIGINT}
     ]
-}
+};
