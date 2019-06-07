@@ -14,7 +14,7 @@ const path = require('path');
 const es = require('event-stream');
 const spawn = require('child_process');
 
-const dist_path = 'dist/electron-app/source/'
+const DIST_PATH = 'dist/electron-app';
 
 function formatString(format) {
     var args = Array.prototype.slice.call(arguments, 1);
@@ -23,41 +23,44 @@ function formatString(format) {
     });
 }
 
-function getModule(path) {
-    var reg = new RegExp("^.*/([^/]+)/[^/]+$");
-    var result = reg.match(path);
-}
-
-function listDir(dir) {
-    return fs.readdirSync(dir)
-    .filter(function(file){
-        return fs.statSync(path.join(dir, file)).isDirectory();
-    });
-}
-
-function pack() {
-    var srcPath = 'source/components';
-    var dirs = listDir(srcPath);
+function component(cb) {
+    function listDir(dir) {
+        return fs.readdirSync(dir)
+        .filter(function(file){
+            return fs.statSync(path.join(dir, file)).isDirectory();
+        });
+    }
+    var SRC_PATH = 'source/component';
+    var dirs = listDir(SRC_PATH);
+    var counter = 0;
+    function onDone() {
+        counter ++;
+        if (counter == dirs.length) {
+            cb();
+        }
+    }
+    var template_pack = function(folder) {
+        return src(path.join(SRC_PATH, folder, '*.xhtml'))
+            .pipe(flatten())
+            .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)));
+    }
     var js_pack = dirs.map(function(folder) {
         console.log("Pack:", folder);
-        return src(path.join(srcPath, folder, '*.js'))
+        return src(path.join(SRC_PATH, folder, '*.js'))
                     .pipe(concat(folder + '.pack.js'))
                     .pipe(uglify())
-                    .pipe(dest(path.join(dist_path, folder)));
+                    .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)))
+                    .pipe(src(path.join(SRC_PATH, folder, '*.xhtml')))
+                    .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)))
+                    .on('end', onDone);
     });
-    var template_pack = function(folder) {
-        return src(path.join(srcPath, folder, '*.xhtml'))
-            .pipe(flatten())
-            .pipe(dest(path.join(dist_path, folder)));
+    var app_pack = function() {
+        return src([path.join(SOURCE_PATH, '*.js'), path.join(SOURCE_PATH, '*.xhtml')])
+            .pipe(dest(path.join(DIST_PATH, SRC_PATH)));
     }
-    var tasks = dirs.map((folder) => {
-        // return parallel(() => js_pack(folder), () => template_pack(folder));
-        // return js_pack(folder);
-    });
-    return es.concat.apply(null, js_pack );
-    // return parallel.apply(null, js_pack);
+    return es.concat.apply(null, js_pack);
 }
-exports.pack = pack;
+exports.component = component;
 
 function framework() {
     return src('source/framework/**/*.js')
@@ -84,51 +87,6 @@ function sqlite() {
 }
 exports.sqlite = sqlite;
 
-var cms = parallel(() => {
-        return src('source/views/cms/**/*.js')
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(concat('cms.pack.js'))
-            .pipe(uglify())
-            .pipe(sourcemaps.write())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }, () => {
-        return src('source/views/cms/**/*.xhtml')
-            .pipe(flatten())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }
-);
-// exports.cms = cms;
-
-var common = parallel(() => {
-        return src('source/views/common/**/*.js')
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(concat('common.pack.js'))
-            .pipe(uglify())
-            .pipe(sourcemaps.write())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }, () => {
-        return src('source/views/common/**/*.xhtml')
-            .pipe(flatten())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }
-);
-exports.common = common;
-
-var component = parallel(() => {
-        return src('source/components/*/*.js')
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(concat('component.pack.js'))
-            // .pipe(uglify())
-            .pipe(sourcemaps.write())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }, () => {
-        return src('source/components/**/*.xhtml')
-            .pipe(flatten())
-            .pipe(dest('dist/electron-app/source/widget'));
-    }
-);
-exports.component = component;
-
 exports.static = function() {
     return src('static/**/*')
         .pipe(dest('dist/electron-app/static'));
@@ -139,4 +97,4 @@ exports.clean = function() {
         .pipe(clean({force: true}));
 }
 exports.framework = parallel(framework, styles);
-exports.all = parallel(sqlite, component);
+exports.all = series(clean, parallel(framework, sqlite, component));
