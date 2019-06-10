@@ -1,0 +1,70 @@
+<hbox xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @import "layout-includes.less";
+        @this {
+            height: 100%;
+        }
+        @leftMenuContainer {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+        }
+        @mainBody {
+            position: relative;
+            & @pageHeaderBar {
+                padding: 0.2em 0.6em;
+                background-color: #4466ff;
+                color: #FFF;
+                font-size: 2em;
+                align-items: center;
+                & > hbox {
+                    align-items: center;
+                }
+                & @toggleMainMenuButton {
+                    font-size: 1.4em;
+                    cursor: pointer;
+                }
+                & @pageTitle {
+                    padding: 0em 0.6em;
+                }
+            }
+            & .ContentPane {
+                background-color: #FFF;
+                & @pageContentWrapper {
+                    background-color: #FFF;
+                }
+            }
+            & @pageCover {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                bottom: 0px;
+                left: 0px;
+                background-color: rgba(0, 0, 0, 0.18);
+                &:not(.Activate) {
+                    display: none;
+                }
+            }
+        }
+    </style>
+
+    <vbox anon-id="mainBody" flex="1">
+        <hbox anon-id="pageHeaderBar">
+            <hbox>
+                <a anon-id="toggleMainMenuButton"><icon class="menu"></icon></a>
+                <strong anon-id="pageTitle" flex="1">TEST</strong>
+            </hbox>
+            <hbox>
+                <span anon-id="currentPage"></span>
+            </hbox>
+        </hbox>
+        <vbox class="ContentPane" flex="1">
+            <ui:PageContentWrapper anon-id="pageContentWrapper" flex="1"/>
+        </vbox>
+        <hbox anon-id="pageCover"></hbox>
+    </vbox>
+    <vbox anon-id="leftMenuContainer">
+        <ui:MainMenu anon-id="mainMenu"/>
+    </vbox>
+</hbox>
