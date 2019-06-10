@@ -23,7 +23,7 @@ function formatString(format) {
     });
 }
 
-function component(cb) {
+function widget_pack(cb) {
     function listDir(dir) {
         return fs.readdirSync(dir)
         .filter(function(file){
@@ -39,27 +39,28 @@ function component(cb) {
             cb();
         }
     }
-    var template_pack = function(folder) {
-        return src(path.join(SRC_PATH, folder, '*.xhtml'))
-            .pipe(flatten())
-            .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)));
-    }
     var js_pack = dirs.map(function(folder) {
         console.log("Pack:", folder);
         return src(path.join(SRC_PATH, folder, '*.js'))
+                    .pipe(wrap({wrapper: function(content, file) {
+                        var file_name = file.modName.replace(/^.*[\\\/]/, '');
+                        return formatString('{0}\n_widget.{2}.{1} = {1};', content, file_name, folder);
+                    }}))
                     .pipe(concat(folder + '.pack.js'))
-                    .pipe(uglify())
+                    // .pipe(uglify())
                     .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)))
                     .pipe(src(path.join(SRC_PATH, folder, '*.xhtml')))
                     .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)))
                     .on('end', onDone);
     });
-    var app_pack = function() {
-        return src([path.join(SOURCE_PATH, '*.js'), path.join(SOURCE_PATH, '*.xhtml')])
-            .pipe(dest(path.join(DIST_PATH, SRC_PATH)));
-    }
     return es.concat.apply(null, js_pack);
 }
+var main_pack = function() {
+    var SRC_PATH = 'source/component';
+    return src([path.join(SRC_PATH, '*.js'), path.join(SRC_PATH, '*.xhtml')])
+    .pipe(dest(path.join(DIST_PATH, SRC_PATH)));
+}
+var component = parallel(main_pack, widget_pack);
 exports.component = component;
 
 function framework() {
@@ -87,14 +88,15 @@ function sqlite() {
 }
 exports.sqlite = sqlite;
 
+function clear() {
+    return src('dist/electron-app/source/*', {read: false})
+        .pipe(clean({force: true}));
+}
+exports.clean = clear;
+
 exports.static = function() {
     return src('static/**/*')
         .pipe(dest('dist/electron-app/static'));
 }
-
-exports.clean = function() {
-    return src('dist/electron-app/source/', {read: false})
-        .pipe(clean({force: true}));
-}
 exports.framework = parallel(framework, styles);
-exports.all = series(clean, parallel(framework, sqlite, component));
+exports.all = series(clear, parallel(framework, styles, sqlite, component));
