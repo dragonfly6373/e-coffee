@@ -4,7 +4,11 @@
     "description": "electron multi-platform application",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "postinstall": "install-app-deps",
+        "rebuild": "electron-rebuild -w sqlite3 -p -v 1.4"
     },
     "keywords": [
         "node",
@@ -15,9 +19,14 @@
     "email": "nguyendang5389@gmail.com",
     "license": "ISC",
     "dependencies": {
-        "electron": "^5.0.1",
-        "electron-builder": "^20.40.2",
+        "bluebird": "^3.5.5",
         "less": "^3.9.0",
-        "sqlite3": "^4.0.4"
+        "sqlite3": "^4.0.8"
+    },
+    "devDependencies": {
+        "electron": "^5.0.3",
+        "electron-builder": "^20.43.0",
+        "electron-prebuilt": "^1.4.13",
+        "electron-rebuild": "^1.8.5"
     }
 }
