@@ -12,7 +12,7 @@ const uglify = composer(uglifyes, console);
 const fs = require('fs');
 const path = require('path');
 const es = require('event-stream');
-const spawn = require('child_process');
+const {spawn} = require('child_process');
 
 const DIST_PATH = 'dist/electron-app';
 
@@ -55,7 +55,7 @@ function widget_pack(cb) {
     });
     return es.concat.apply(null, js_pack);
 }
-var main_pack = function() {
+function main_pack() {
     var SRC_PATH = 'source/component';
     return src([path.join(SRC_PATH, '*.js'), path.join(SRC_PATH, '*.xhtml')])
     .pipe(dest(path.join(DIST_PATH, SRC_PATH)));
@@ -100,3 +100,19 @@ exports.static = function() {
 }
 exports.framework = parallel(framework, styles);
 exports.all = series(clear, parallel(framework, styles, sqlite, component));
+
+
+
+exports.ls = function(cb) {
+    const ls = spawn('ls', ['./source/'])
+        .on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
+            cb();
+        });
+    ls.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+    });
+    ls.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+    });
+};
