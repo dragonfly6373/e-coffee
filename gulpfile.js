@@ -44,9 +44,14 @@ function widget_pack(cb) {
         return src(path.join(SRC_PATH, folder, '*.js'))
                     .pipe(wrap({wrapper: function(content, file) {
                         var file_name = file.modName.replace(/^.*[\\\/]/, '');
-                        return formatString('{0}\n_widget.{2}.{1} = {1};', content, file_name, folder);
+                        if (folder != 'common') return formatString('{0}\n_pkg.{2}.{1} = {1};', content, file_name, folder);
+                        else return content;
                     }}))
                     .pipe(concat(folder + '.pack.js'))
+                    .pipe(wrap({wrapper: function(content, file) {
+                        if (folder != 'common') return ('_pkg.' + folder + ' = {};\n' + content);
+                        else return content;
+                    }}))
                     // .pipe(uglify())
                     .pipe(dest(path.join(DIST_PATH, SRC_PATH, folder)))
                     .pipe(src(path.join(SRC_PATH, folder, '*.xhtml')))
@@ -71,7 +76,7 @@ function framework() {
 
 function styles() {
     return src('source/framework/widget/style/**/*')
-        .pipe(dest('dist/electron-app/source/framework'));
+        .pipe(dest('dist/electron-app/source/framework/style'));
 }
 
 function sqlite() {
