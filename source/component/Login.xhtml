@@ -1,0 +1,34 @@
+<vbox xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://evolus.vn/Namespaces/WebUI/1.0">
+    <style>
+        @this {
+            margin: 1em;
+        }
+        .FormContainer {
+            background-color: #CCC;
+            border: 1px solid #444;
+            padding: 1.2em;
+            & .FormField {
+                margin-bottom: 0.6em;
+                & > label {
+                    width: 10em;
+                }
+            }
+        }
+    </style>
+    <hbox class="FormTitle">
+        <label flex="1">Login Form</label>
+    </hbox>
+    <vbox class="FormContainer">
+        <hbox class="FormField">
+            <label class="Label">User name</label>
+            <input flex="1" type="text" anon-id="itemUserName" />
+        </hbox>
+        <hbox class="FormField">
+            <label class="Label">Password</label>
+            <input flex="1" type="password" anon-id="itemPassword" />
+        </hbox>
+        <hbox class="FormAction">
+            <button anon-id="actionSubmit">Login</button>
+        </hbox>
+    </vbox>
+</vbox>
