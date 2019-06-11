@@ -227,7 +227,10 @@ widget.Util = function() {
 
                 return modified;
             });
+            var includes = "";
+            includes += "@import \"" + __getFrameworkPrefix() + "style/layout-includes.less\";\n";
             css = css.replace(/\$([a-z0-9_]+)/g, "@$1");
+            css = includes + css;
             if (less) {
                 less.render(css, lessParserConfig).then(function (output) {
                     widget.Util.insertGlobalStyleSheet(output.css, templateName);
@@ -284,6 +287,8 @@ widget.Util = function() {
             if (less) {
                 less.render("@import \"" + path + "\";", lessParserConfig).then(function(output) {
                     var node = widget.Util.insertGlobalStyleSheet(output.css, name);
+                }).catch(function (e) {
+                    console.error(e);
                 });
             }
         },

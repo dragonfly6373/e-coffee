@@ -93,6 +93,13 @@ function sqlite() {
 }
 exports.sqlite = sqlite;
 
+function service() {
+    return src('source/service/*.js')
+        .pipe(concat('service.pack.js'))
+        .pipe(dest('dist/electron-app/source/service'));
+}
+exports.service = service;
+
 function clear() {
     return src('dist/electron-app/source/*', {read: false})
         .pipe(clean({force: true}));
@@ -104,8 +111,7 @@ exports.static = function() {
         .pipe(dest('dist/electron-app/static'));
 }
 exports.framework = parallel(framework, styles);
-exports.all = series(clear, parallel(framework, styles, sqlite, component));
-
+exports.all = series(clear, parallel(framework, styles, sqlite, component, service));
 
 
 exports.ls = function(cb) {

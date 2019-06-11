@@ -8,7 +8,7 @@ function TableItemView() {
 __extend(BaseTemplatedWidget, TableItemView);
 
 TableItemView.prototype.render = function(data) {
-    console.log("TableItemView render", data);
+    // console.log("TableItemView render", data);
     this.data = data;
     this.itemName.textContent = data.name;
     Dom.addClass(this.tableBody, "Available");
