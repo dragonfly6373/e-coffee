@@ -68,16 +68,21 @@ function main_pack() {
 var component = parallel(main_pack, widget_pack);
 exports.component = component;
 
-function framework() {
-    return src('source/framework/**/*.js')
-        .pipe(concat('common-framework.pack.js'))
-        .pipe(dest('dist/electron-app/source/framework'));
+function _widget() {
+    return src(['source/framework/widget/Common.js', 'source/framework/widget/Utils.js', 'source/framework/widget/*.js'])
+        .pipe(concat('widget.pack.js'))
+        .pipe(src('source/framework/widget/*.xhtml'))
+        .pipe(dest(path.join(DIST_PATH, 'source/framework/widget')));
 }
-
-function styles() {
-    return src('source/framework/widget/style/**/*')
-        .pipe(dest('dist/electron-app/source/framework/style'));
+function _framework() {
+    return src('source/framework/*.js')
+        .pipe(dest(path.join(DIST_PATH, 'source/framework')));
 }
+function _style() {
+    return src('source/framework/style/**/*')
+        .pipe(dest(path.join(DIST_PATH, 'source/framework/style')));
+}
+exports.framework = parallel(_widget, _framework, _style);
 
 function sqlite() {
     return src('source/data/sqlite/model/*.js')
@@ -110,8 +115,7 @@ exports.static = function() {
     return src('static/**/*')
         .pipe(dest('dist/electron-app/static'));
 }
-exports.framework = parallel(framework, styles);
-exports.all = series(clear, parallel(framework, styles, sqlite, component, service));
+exports.all = series(clear, parallel(_framework, _widget, _style, sqlite, component, service));
 
 
 exports.ls = function(cb) {

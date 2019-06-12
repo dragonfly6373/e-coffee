@@ -41,7 +41,7 @@ function __guessPrefix() {
     return src.replace(/\/[^\/]+\.js$/, "/");
 }
 
-window.FRAMEWORK_PATH = __guessPrefix().replace(/js\/widget\/$/, "");
+window.FRAMEWORK_PATH = __guessPrefix().replace(/widget\/$/, "");
 
 //support function.name in IE9+
 if (!(function f() {}).name) {
@@ -926,7 +926,7 @@ function BaseTemplatedWidget() {
 }
 __extend(BaseWidget, BaseTemplatedWidget);
 BaseTemplatedWidget.getTemplatePrefix = function () {
-    return __getFrameworkPrefix() + "js/widget/";
+    return __getFrameworkPrefix() + "widget/";
 };
 BaseTemplatedWidget.prototype.buildDOMNode = function () {
     var path = this.getTemplatePath();
