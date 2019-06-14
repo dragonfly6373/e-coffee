@@ -84,19 +84,27 @@ function _style() {
 }
 exports.framework = parallel(_widget, _framework, _style);
 
-function sqlite() {
+function _model() {
     return src('source/data/sqlite/model/*.js')
         .pipe(wrap({
             wrapper: function(content, file) {
                 return formatString('{0}\nModel.{1} = {1};\n', content, file.modName.replace(/^.*[\\\/]/, ''));
             }
         }))
-        .pipe(concat('sqlite-db.pack.js'))
-        .pipe(wrap({wrapper: 'var DataType = { BOOLEAN: 1, INTEGER: 2, TEXT: 3, BIGINT: 4, DOUBLE: 5, FLOAT: 6, BLOB: 7, TIMESTAMP: 8 };\nvar Model = {};\n{file}'}))
-        .pipe(uglify())
-        .pipe(dest('dist/electron-app/source/data'));
+        .pipe(concat('model.pack.js'))
+        .pipe(wrap({wrapper: 'var Model = {};\n{file}'}))
+        .pipe(dest(path.join(DIST_PATH, 'source/data')));
 }
-exports.sqlite = sqlite;
+exports.model = _model;
+function _sqlite() {
+    return src('source/data/sqlite/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('sqlite-db.pack.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(dest(path.join(DIST_PATH, 'source/data')));
+}
+exports.sqlite = parallel(_sqlite, _model);
 
 function service() {
     return src('source/service/*.js')
@@ -115,7 +123,7 @@ exports.static = function() {
     return src('static/**/*')
         .pipe(dest('dist/electron-app/static'));
 }
-exports.all = series(clear, parallel(_framework, _widget, _style, sqlite, component, service));
+exports.all = series(clear, parallel(_framework, _widget, _style, _model, _sqlite, component, service));
 
 
 exports.ls = function(cb) {

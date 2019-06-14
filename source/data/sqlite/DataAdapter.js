@@ -1,9 +1,10 @@
+var DataType = { BOOLEAN: 1, INTEGER: 2, TEXT: 3, BIGINT: 4, DOUBLE: 5, FLOAT: 6, BLOB: 7, TIMESTAMP: 8, DATE: 9 };
 var DataAdapter = (function() {
     var DB_NAME;
     var __connection;
     function getConnection() {
+        console.log("try to connect db:", DB_NAME, __connection);
         if (__connection != null) return __connection;
-        console.log("try to connect db:", DB_NAME);
         __connection = new sqlite3.Database(DB_NAME);
         return __connection;
     }
@@ -20,6 +21,24 @@ var DataAdapter = (function() {
                 return value ? value : 0;
         }
     }
+    function toSqliteType(dataType) {
+        switch(dataType) {
+            case DataType.BOOLEAN:
+            case DataType.INTEGER:
+                return "INTEGER";
+            case DataType.DOUBLE:
+            case DataType.FLOAT:
+            case DataType.DATE:
+            case DataType.TIMESTAMP:
+                return "REAL";
+            case DataType.TEXT:
+                return "TEXT";
+            case DataType.BLOB:
+                return "BLOB";
+            default:
+                return "TEXT";
+        }
+    }
     return {
         connect: function(path, callback) {
             DB_NAME = path;
@@ -30,9 +49,10 @@ var DataAdapter = (function() {
             console.log("Create:", clazz.tablename);
             var db = getConnection();
             var fields = clazz.columns.map(function(col) {
-                return col.name + " " + convertDataByType(col.datatype) + "\n"
+                return col.name + " " + toSqliteType(col.datatype)
             }).join(",\n");
-            var sql = String.format("CREATE TABLE {0} ({1})", clazz.tablename, fields);
+            var sql = String.format("CREATE TABLE {0} ({1});", clazz.tablename, fields);
+            console.log("Execute Query:", sql);
             db.run(sql, function(error) {
                 if (callback) callback(error);
             });
@@ -44,8 +64,9 @@ var DataAdapter = (function() {
             var values = clazz.columns.map(function(col) {
                 return convertDataByType(data[col.name], col.datatype);
             }).join(",");
-            db.run(String.format("INSERT INTO {0} ({1}) VALUES({2})", clazz.tablename, clazz.columns.map(function(col) { return col.name; }).join(","), values),
-                [],
+            var sql = String.format("INSERT INTO {0} ({1}) VALUES({2})", clazz.tablename, clazz.columns.map(function(col) { return col.name; }).join(","), values);
+            console.log("Execute Query:", sql);
+            db.run(sql, [],
                 function(output) {
                     if (callback) callback(output);
                     db.close();
@@ -59,7 +80,16 @@ var DataAdapter = (function() {
         update: function(clazz, data, condition, callback) {
             console.log("Update:", clazz.tablename, data);
             var db = getConnection();
-            // conn.run("UPDATE ...");
+            var values = clazz.columns.map(function(col) {
+                return col + " = " + convertDataByType(data[col.name], col.datatype);
+            }).join(",");
+            var sql = String.format("UPDATE {0} SET {1} WHERE {2}", clazz.tablename, values, condition.build());
+            console.log("Execute Query:", sql);
+            db.run(sql, [], function(output) {
+                    if (callback) callback(output);
+                    db.close();
+                }
+            );
             db.close();
         },
         bashUpdate: function(clazz, values, condition, callback) {
