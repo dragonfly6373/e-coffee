@@ -4,8 +4,8 @@ var DataAdapter = (function() {
     var __connection;
     function getConnection() {
         console.log("try to connect db:", DB_NAME, __connection);
-        if (__connection != null) return __connection;
-        __connection = new sqlite3.Database(DB_NAME);
+        if (!__connection || !__connection.open)
+            __connection = new sqlite3.Database(DB_NAME);
         return __connection;
     }
     function convertDataByType(value, datatype) {
@@ -43,7 +43,7 @@ var DataAdapter = (function() {
         connect: function(path, callback) {
             DB_NAME = path;
             __connection = getConnection();
-            return __connection;
+            return this;
         },
         create: function(clazz, callback) {
             console.log("Create:", clazz.tablename);
@@ -55,8 +55,8 @@ var DataAdapter = (function() {
             console.log("Execute Query:", sql);
             db.run(sql, function(error) {
                 if (callback) callback(error);
+                db.close();
             });
-            db.close();
         },
         insert: function(clazz, data, callback) {
             console.log("Insert:", clazz.tablename, data);
@@ -67,12 +67,11 @@ var DataAdapter = (function() {
             var sql = String.format("INSERT INTO {0} ({1}) VALUES({2})", clazz.tablename, clazz.columns.map(function(col) { return col.name; }).join(","), values);
             console.log("Execute Query:", sql);
             db.run(sql, [],
-                function(output) {
-                    if (callback) callback(output);
+                function(error) {
+                    if (callback) callback(error);
                     db.close();
                 }
             );
-            db.close();
         },
         insertMulti: function(clazz, list, callback) {
             console.log("Insert Multi:", clazz.tablename, data);
@@ -121,7 +120,9 @@ var DataAdapter = (function() {
         getById: function(clazz, id, callback) {
             console.log("Get by Id:", clazz.tablename, id);
             var conn = getConnection();
-            conn.get("SELECT * FROM $tablename WHERE id = $id", {$tablename: clazz.tablename, $id: id}, callback);
+            conn.get("SELECT * FROM $tablename WHERE id = $id", {$tablename: clazz.tablename, $id: id}, function(data) {
+                if (callback) callback(data);
+            });
         },
         query: function(sql, callback) {
             console.log("Query by condition: ", clazz.tablename, condition);
